@@ -1,0 +1,28 @@
+.seta__startup-card {
+
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.5);
+  z-index: 1000;
+}
+
+.seta__startup-card__content {
+
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  padding: 1.5rem;
+  margin: 1rem;
+}
+
+.seta__startup-card__file-input {
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
