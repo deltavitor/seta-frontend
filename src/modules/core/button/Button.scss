@@ -1,0 +1,37 @@
+// TODO revisit colors, create variables, etc
+
+.seta__button {
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.seta__button--primary {
+  background-color: #007373 ;
+  color: #FFFFFF;
+  border: 1px solid #007373 ;
+
+  &:hover {
+    background-color: #005A62;
+  }
+
+  &:active {
+    background-color: #004452;
+  }
+}
+
+.seta__button--secondary {
+  background-color: #FFFFFF;
+  color: #007373 ;
+  border: 1px solid #007373 ;
+
+  &:hover {
+    background-color: #C6F8E6;
+  }
+
+  &:active {
+    background-color: #90F0D7;
+  }
+}
