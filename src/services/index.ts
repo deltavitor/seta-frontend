@@ -1,3 +1,7 @@
-import notificationService from "./notificationService";
+import notificationLocationService from "./notification-location-service";
+import notificationService from "./notification-service";
 
-export { notificationService };
+export {
+    notificationLocationService,
+    notificationService
+};
