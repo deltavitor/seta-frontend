@@ -1,4 +1,4 @@
-// TODO revisit colors, create variables, etc
+@use "../../../styles/colors";
 
 .seta__button {
   padding: 0.5rem;
@@ -9,29 +9,29 @@
 }
 
 .seta__button--primary {
-  background-color: #007373 ;
-  color: #FFFFFF;
-  border: 1px solid #007373 ;
+  background-color: colors.$teal-500 ;
+  color: colors.$white;
+  border: 1px solid colors.$teal-500 ;
 
   &:hover {
-    background-color: #005A62;
+    background-color: colors.$teal-600;
   }
 
   &:active {
-    background-color: #004452;
+    background-color: colors.$teal-700;
   }
 }
 
 .seta__button--secondary {
-  background-color: #FFFFFF;
-  color: #007373 ;
-  border: 1px solid #007373 ;
+  background-color: colors.$white;
+  color: colors.$teal-500 ;
+  border: 1px solid colors.$teal-500 ;
 
   &:hover {
-    background-color: #C6F8E6;
+    background-color: colors.$teal-100;
   }
 
   &:active {
-    background-color: #90F0D7;
+    background-color: colors.$teal-200;
   }
 }

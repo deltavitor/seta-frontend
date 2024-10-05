@@ -1,0 +1,18 @@
+@use "./colors.scss";
+
+// TODO see if there are better alternatives
+
+:export {
+  white: colors.$white;
+  darkGray: colors.$dark-gray;
+  teal100: colors.$teal-100;
+  teal200: colors.$teal-200;
+  teal300: colors.$teal-300;
+  teal400: colors.$teal-400;
+  teal500: colors.$teal-500;
+  teal600: colors.$teal-600;
+  teal700: colors.$teal-700;
+  blue: colors.$blue;
+  yellow: colors.$yellow;
+  red: colors.$red;
+}
