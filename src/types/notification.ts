@@ -1,3 +1,6 @@
+import type ClassificacaoFinal from "./classificacao-final";
+import type CriterioConfirmacao from "./criterio-confirmacao";
+
 interface Notification {
 
     numeroNotificacao: string;
@@ -68,9 +71,9 @@ interface Notification {
 
     dataInvestigacao: Date;
 
-    classificacaoFinal: string;
+    classificacaoFinal: ClassificacaoFinal;
 
-    criterioConfirmacao: string;
+    criterioConfirmacao: CriterioConfirmacao;
 
     febre: boolean;
 
