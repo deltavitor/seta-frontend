@@ -3,7 +3,7 @@ import classNames from "classnames";
 import React from "react";
 
 type ButtonProps = {
-    label: String;
+    children: React.ReactNode;
     kind: "primary" | "secondary";
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     type?: "button" | "submit" | "reset";
@@ -18,8 +18,10 @@ function Button(props: ButtonProps) {
     });
 
     return (
-        <button type={props.type} className={classes} onClick={props.onClick}>{props.label}</button>
-    )
+        <button type={props.type} className={classes} onClick={props.onClick}>
+            {props.children}
+        </button>
+    );
 }
 
 export default Button;

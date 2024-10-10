@@ -41,11 +41,10 @@ function StartupCard() {
                             onChange={handleFileChange}
                             style={{ display: "none" }}
                         />
-                        <Button label={"Escolher arquivo"} kind={"secondary"} onClick={handleBrowseFilesButtonClick}
-                                type={"button"}></Button>
+                        <Button kind={"secondary"} onClick={handleBrowseFilesButtonClick} type={"button"}>Escolher arquivo</Button>
                         <small>{file ? file.name : "Nenhum arquivo selecionado"}</small>
                     </div>
-                    <Button label={"Enviar"} kind={"primary"} type={"submit"}></Button>
+                    <Button kind={"primary"} type={"submit"}>Enviar</Button>
                 </form>
             </div>
         </div>

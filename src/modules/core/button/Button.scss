@@ -1,11 +1,18 @@
 @use "../../../styles/colors";
 
 .seta__button {
+  display: inline-flex;
+  align-items: center;
   padding: 0.5rem;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   font-family: inherit;
+}
+
+// Targets any icons
+.seta__button .lucide {
+  margin-left: 0.5rem;
 }
 
 .seta__button--primary {
