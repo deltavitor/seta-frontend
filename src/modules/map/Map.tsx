@@ -7,14 +7,13 @@ import { renderToString } from "react-dom/server";
 import { ClassificacoesFinais, CriteriosConfirmacao } from "../../consts";
 
 type MapProps = {
-    notificationLocations: Array<NotificationLocation>
+    notificationLocations: Array<NotificationLocation>;
 };
 
 function Map(props: MapProps) {
 
-    const { notificationLocations } = props;
-    const centerLatitude = notificationLocations[0]?.latitude;
-    const centerLongitude = notificationLocations[0]?.longitude;
+    const centerLatitude = props.notificationLocations[0]?.latitude;
+    const centerLongitude = props.notificationLocations[0]?.longitude;
 
     const markerSize = 24;
 
@@ -44,24 +43,23 @@ function Map(props: MapProps) {
     };
 
     return (
-        <MapContainer center={[centerLatitude, centerLongitude]} zoom={15} >
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            />
-            {notificationLocations.map((notificationLocation, index) => (
-                <Marker
-                    key={index}
-                    position={[notificationLocation.latitude, notificationLocation.longitude]}
-                    icon={getNotificationLocationMarker(notificationLocation)}
-                >
-                    <Popup>
-                        {notificationLocation.latitude},{notificationLocation.longitude}
-                    </Popup>
-                </Marker>
-            ))}
+        <MapContainer center={[centerLatitude, centerLongitude]} zoom={15} zoomControl={false} attributionControl={false} >
+            <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
+            {props.notificationLocations.map((notificationLocation, index) => {
+                return (
+                    <Marker
+                        key={index}
+                        position={[notificationLocation.latitude, notificationLocation.longitude]}
+                        icon={getNotificationLocationMarker(notificationLocation)}
+                    >
+                        <Popup>
+                            {notificationLocation.latitude},{notificationLocation.longitude}
+                        </Popup>
+                    </Marker>
+                )
+            })}
         </MapContainer>
-    )
+    );
 }
 
 export default Map;
