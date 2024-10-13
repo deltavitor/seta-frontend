@@ -1,0 +1,59 @@
+@use "../../styles/colors";
+
+.seta__notification-summary-list {
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    padding: 0 0 1rem 0;
+    font-size: 1.5rem;
+    color: colors.$gray-800;
+    font-weight: 400;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 1rem 0;
+
+    &__header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      padding: 0 0 0.125rem 0;
+
+      &__title {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+    }
+
+    &__body {
+      display: flex;
+      color: colors.$gray-800;
+      padding: 0 0 0.5rem 0;
+    }
+
+    &__footer {
+      display: flex;
+    }
+  }
+
+  // Common classes
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 0.125rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    padding: 0 0 1rem 0;
+  }
+
+  &__inline-field {
+    display: inline-flex;
+    align-items: center;
+  }
+}
