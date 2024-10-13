@@ -4,6 +4,7 @@ import React from "react";
 
 type ButtonProps = {
     children: React.ReactNode;
+    size?: "small";
     kind: "primary" | "secondary";
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     type?: "button" | "submit" | "reset";
@@ -13,6 +14,7 @@ function Button(props: ButtonProps) {
 
     const classes = classNames({
         "seta__button": true,
+        "seta__button--sm": props.size === "small",
         "seta__button--primary": props.kind === "primary",
         "seta__button--secondary": props.kind === "secondary",
     });
