@@ -1,0 +1,72 @@
+@use "../../../styles/colors";
+
+.seta__badge {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  height: 1.5rem;
+
+  &.seta__badge--sm {
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.75rem;
+    height: 1.25rem;
+    font-size: 0.75rem;
+  }
+}
+
+.seta__badge .lucide {
+  margin-right: 0.5rem;
+}
+
+.seta__badge--light {
+
+  &.seta__badge--blue {
+    background-color: colors.$blue-100;
+    border: 1px solid colors.$blue-300;
+    color: colors.$blue-700;
+  }
+
+  &.seta__badge--red {
+    background-color: colors.$red-100;
+    border: 1px solid colors.$red-300;
+    color: colors.$red-700;
+  }
+
+  &.seta__badge--yellow {
+    background-color: colors.$yellow-100;
+    border: 1px solid colors.$yellow-300;
+    color: colors.$yellow-700;
+  }
+
+  &.seta__badge--gray {
+    background-color: colors.$gray-300;
+    border: 1px solid colors.$gray-800;
+    color: colors.$dark-gray;
+  }
+}
+
+.seta__badge--heavy {
+
+  &.seta__badge--blue {
+    background-color: colors.$blue-200;
+    color: colors.$blue-800;
+  }
+
+  &.seta__badge--red {
+    background-color: colors.$red-200;
+    color: colors.$red-800;
+  }
+
+  &.seta__badge--yellow {
+    background-color: colors.$yellow-200;
+    color: colors.$yellow-800;
+  }
+
+  &.seta__badge--gray {
+    background-color: colors.$dark-gray;
+    color: colors.$gray-300;
+  }
+}
