@@ -1,5 +1,6 @@
 import type ClassificacaoFinal from "./classificacao-final";
 import type CriterioConfirmacao from "./criterio-confirmacao";
+import type ResultadoExame from "./resultado-exame";
 
 interface Notification {
 
@@ -119,19 +120,19 @@ interface Notification {
 
     dataColetaExame: Date;
 
-    resultadoExame: string;
+    resultadoExame: ResultadoExame;
 
     dataColetaNs1: Date;
 
-    resultadoNs1: string;
+    resultadoNs1: ResultadoExame;
 
     dataColetaIsolamento: Date;
 
-    resultadoIsolamento: string;
+    resultadoIsolamento: ResultadoExame;
 
     dataColetaRtpcr: Date;
 
-    resultadoRtpcr: string;
+    resultadoRtpcr: ResultadoExame;
 
     sorotipo: string;
 
