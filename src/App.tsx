@@ -6,14 +6,17 @@ import { useEffect, useState } from "react";
 import { Button } from "./modules/core";
 import { Filter } from "lucide-react";
 import { getNotificationType } from "./utils";
-import type { NotificationLocation, NotificationTypeFilter } from "./types";
+import type { Notification, NotificationLocation, NotificationTypeFilter } from "./types";
+import NotificationPane from "./modules/notification-pane/NotificationPane";
 
 function App() {
 
     const { data: notificationLocationData, isLoading } = useFindNotificationLocations();
     const [notificationLocations, setNotificationLocations] = useState<Array<NotificationLocation>>();
     const [filteredNotificationLocations, setFilteredNotificationLocations] = useState<Array<NotificationLocation>>();
-    const [notificationFiltersAreVisible, setNotificationFiltersAreVisible] = useState(true);
+    const [notificationFiltersAreVisible, setNotificationFiltersAreVisible] = useState(false);
+    const [notificationLocation, setNotificationLocation] = useState<NotificationLocation>();
+    const [numeroNotificacao, setNumeroNotificacao] = useState<Notification["numeroNotificacao"]>("0");
 
     const handleNotificationsFilterChange = (filters: NotificationTypeFilter) => {
         setFilteredNotificationLocations(notificationLocations?.map(notificationLocation => {
@@ -45,7 +48,8 @@ function App() {
                             Filtros <Filter size={20} />
                         </Button>
                     </div>
-                    <Map notificationLocations={filteredNotificationLocations || notificationLocations}></Map>
+                    <NotificationPane numeroNotificacao={numeroNotificacao} setNumeroNotificacao={setNumeroNotificacao} notificationLocation={notificationLocation} />
+                    <Map notificationLocations={filteredNotificationLocations || notificationLocations} setNumeroNotificacao={setNumeroNotificacao} notificationLocation={notificationLocation} setNotificationLocation={setNotificationLocation}></Map>
                 </div>
             }
         </div>

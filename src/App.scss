@@ -1,8 +1,17 @@
+@use "./styles/colors";
+
 body {
   font-family: "Inter Variable", sans-serif;
   font-style: normal;
   font-weight: 400;
   margin: 0;
+}
+
+hr {
+  border: 0;
+  border-top: 2px solid colors.$gray-300;
+  margin-left: 1rem;
+  flex: 1;
 }
 
 .leaflet-container {
