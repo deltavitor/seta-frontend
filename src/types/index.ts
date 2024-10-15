@@ -7,6 +7,7 @@ import type NotificationFeatures from "./notification-features";
 import type NotificationTypeFilter from "./notification-type-filter";
 import type NotificationLocation from "./notification-location";
 import type NotificationSummary from "./notification-summary";
+import type NotificationTimeFilter from "./notification-time-filter";
 import type NotificationType from "./notification-type";
 import type Prediction from "./prediction";
 import type ResultadoExame from "./resultado-exame";
@@ -18,10 +19,11 @@ export {
     MapLayerFilter,
     Notification,
     NotificationFeatures,
-    NotificationTypeFilter,
     NotificationLocation,
     NotificationSummary,
+    NotificationTimeFilter,
     NotificationType,
+    NotificationTypeFilter,
     Prediction,
     ResultadoExame,
 };
