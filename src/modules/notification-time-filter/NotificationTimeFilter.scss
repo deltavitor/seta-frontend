@@ -1,0 +1,70 @@
+@use "../../styles/colors";
+
+.seta__notification-time-filter {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  background-color: colors.$white;
+  padding: 1rem;
+  z-index: 1000;
+  width: 16rem;
+  box-shadow: 0 2px 2px colors.$transparent-dark-gray, 0 4px 4px colors.$transparent-dark-gray, 0 8px 8px colors.$transparent-dark-gray;
+
+  // Common classes
+
+  &__label {
+    font-size: 1rem;
+    font-weight: 400;
+    color: colors.$gray-800;
+    margin: 0 0 0.25rem 0;
+  }
+
+  &__input {
+    border: 0.05rem solid colors.$gray-800;
+    background-clip: padding-box;
+    padding: 0.5rem 1rem;
+    font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__error-text {
+    font-size: 0.875rem;
+    color: colors.$red-700;
+    padding: 0 0 0.75rem 0;
+  }
+}
+
+.seta__notification-time-filter--hidden {
+  display: none;
+}
+
+.seta__notification-time-filter__header {
+  padding: 0 0 0.75rem 0;
+}
+
+.seta__notification-time-filter__title {
+  display: block;
+  font-weight: 600;
+  padding: 0 0 0.75rem 0;
+}
+
+.seta__notification-time-filter__subtitle {
+  font-size: 0.875rem;
+}
+
+.seta__notification-time-filter__body {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 0.75rem 0;
+}
+
+.seta__notification-time-filter__input-wrapper {
+  padding: 0 0 0.75rem 0;
+}
+
+.seta__notification-time-filter__footer {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+}

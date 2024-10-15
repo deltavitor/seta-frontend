@@ -1,4 +1,4 @@
-import "./NotificationFilter.scss";
+import "./NotificationTypeFilter.scss";
 import { MenuOption, Marker } from "../core";
 import React from "react";
 import classNames from "classnames";
@@ -10,7 +10,7 @@ type NotificationFilterProps = {
     setNotificationTypeFilter: React.Dispatch<React.SetStateAction<NotificationTypeFilter>>;
 };
 
-function NotificationFilter(props: NotificationFilterProps) {
+function NotificationTypeFilter(props: NotificationFilterProps) {
 
     const toggleFilter = (filterName: NotificationType, isEnabled: boolean) => {
         const newFiltersState = {
@@ -52,4 +52,4 @@ function NotificationFilter(props: NotificationFilterProps) {
     );
 }
 
-export default NotificationFilter;
+export default NotificationTypeFilter;
