@@ -1,5 +1,5 @@
 import "./MenuOption.scss";
-import React, { useState } from "react";
+import React from "react";
 import { Check } from "lucide-react";
 
 type MenuOptionProps = {
@@ -10,18 +10,14 @@ type MenuOptionProps = {
 
 function MenuOption(props: MenuOptionProps) {
 
-    const [isChecked, setIsChecked] = useState(props.checked);
-
     const toggle = () => {
-        const newCheckedState = !isChecked;
-        setIsChecked(newCheckedState);
-        props.handleToggle && props.handleToggle(newCheckedState);
+        props.handleToggle && props.handleToggle(!props.checked);
     };
 
     return (
         <button className={"seta__menu-option"} onClick={toggle}>
             {props.children}
-            <Check className={"seta__menu-option__check-icon"} size={20} {...(isChecked ? {visibility: "visible"} : {visibility: "hidden"})}/>
+            <Check className={"seta__menu-option__check-icon"} size={20} {...(props.checked ? {visibility: "visible"} : {visibility: "hidden"})}/>
         </button>
     );
 }
