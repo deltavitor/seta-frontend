@@ -1,13 +1,19 @@
 import "@fontsource-variable/inter";
 import "./App.scss";
-import { Map, MapLayerFilter, NotificationFilter, StartupCard } from "./modules";
+import { Map, MapLayerFilter, NotificationTimeFilter, NotificationTypeFilter, StartupCard } from "./modules";
 import { useFindNotificationLocations } from "./hooks";
 import { useEffect, useState } from "react";
 import { Button } from "./modules/core";
-import { Filter, Layers } from "lucide-react";
-import { getNotificationType } from "./utils";
-import type { MapLayerFilter as MapLayerFilterType, Notification, NotificationLocation, NotificationTypeFilter } from "./types";
+import { Calendar, Filter, Layers } from "lucide-react";
+import { getNotificationType, parseDate } from "./utils";
+import type {
+    MapLayerFilter as MapLayerFilterType,
+    Notification, NotificationLocation,
+    NotificationTimeFilter as NotificationTimeFilterType,
+    NotificationTypeFilter as NotificationTypeFilterType,
+} from "./types";
 import NotificationPane from "./modules/notification-pane/NotificationPane";
+import NotificationSummary from "./types/notification-summary";
 
 function App() {
 
@@ -21,11 +27,12 @@ function App() {
 
     // Visibility / UI states
     const [controlPanelFiltersVisibility, setControlPanelFiltersVisibility] = useState({
-        notificationFilters: false,
         mapLayerFilters: false,
+        notificationTypeFilters: false,
+        notificationTimeFilters: false,
     });
 
-    const [notificationTypeFilter, setNotificationTypeFilter] = useState<NotificationTypeFilter>({
+    const [notificationTypeFilter, setNotificationTypeFilter] = useState<NotificationTypeFilterType>({
         labConfirmed: true,
         labDiscarded: true,
         clinicalConfirmed: true,
@@ -35,6 +42,10 @@ function App() {
     const [mapLayerFilter, setMapLayerFilter] = useState<MapLayerFilterType>({
         notifications: true,
         heatmap: false,
+    });
+    const [notificationTimeFilter, setNotificationTimeFilter] = useState<NotificationTimeFilterType>({
+        startDate: undefined,
+        endDate: undefined,
     });
 
     const toggleControlPanelFilter = (filterKey: keyof typeof controlPanelFiltersVisibility) => {
@@ -50,10 +61,26 @@ function App() {
         return notificationLocation.locationType !== "APPROXIMATE";
     };
 
+    const isNotificationWithinTimeRange = (
+        notification: Notification | NotificationSummary,
+        startDate: Date,
+        endDate: Date
+    ) => {
+        return notification.dataNotificacaoParsed &&
+            notification.dataNotificacaoParsed >= startDate && notification.dataNotificacaoParsed <= endDate;
+    };
+
     useEffect(() => {
         setFilteredNotificationLocations(validNotificationLocations?.map(notificationLocation => {
             const filteredNotifications = notificationLocation.notifications.filter(notification => {
-                return notificationTypeFilter[getNotificationType(notification)];
+                const notificationTypeCondition = notificationTypeFilter[getNotificationType(notification)];
+                const notificationTimeCondition = notificationTimeFilter.startDate && notificationTimeFilter.endDate ?
+                    isNotificationWithinTimeRange(
+                        notification,
+                        notificationTimeFilter.startDate,
+                        notificationTimeFilter.endDate
+                    ) : true;
+                return notificationTypeCondition && notificationTimeCondition;
             });
 
             return {
@@ -61,10 +88,19 @@ function App() {
                 notifications: filteredNotifications
             };
         }).filter(notificationLocation => notificationLocation.notifications.length > 0));
-    }, [notificationTypeFilter]);
+    }, [notificationTypeFilter, notificationTimeFilter]);
 
     useEffect(() => {
-        setNotificationLocations(notificationLocationData);
+        // When we first render the new notificationLocationData, we'll apply
+        // some changes to results so we can do some stuff internally
+        const updatedNotificationLocationData = notificationLocationData?.map(notificationLocation => {
+           notificationLocation.notifications.map(notification => {
+               notification.dataNotificacaoParsed = parseDate(notification.dataNotificacao);
+               return notification;
+           });
+           return notificationLocation;
+        });
+        setNotificationLocations(updatedNotificationLocationData);
     }, [notificationLocationData]);
 
     useEffect(() => {
@@ -94,10 +130,19 @@ function App() {
                             </Button>
                         </div>
                         <div style={{position: "relative", display: "inline-block"}}>
-                            <NotificationFilter hidden={!controlPanelFiltersVisibility.notificationFilters}
-                                                filters={notificationTypeFilter} setNotificationTypeFilter={setNotificationTypeFilter}/>
-                            <Button kind={"primary"} onClick={() => toggleControlPanelFilter("notificationFilters")}>
+                            <NotificationTypeFilter hidden={!controlPanelFiltersVisibility.notificationTypeFilters}
+                                                    filters={notificationTypeFilter}
+                                                    setNotificationTypeFilter={setNotificationTypeFilter}/>
+                            <Button kind={"primary"} onClick={() => toggleControlPanelFilter("notificationTypeFilters")}>
                                 Filtros <Filter size={20}/>
+                            </Button>
+                        </div>
+                        <div style={{position: "relative", display: "inline-block"}}>
+                            <NotificationTimeFilter hidden={!controlPanelFiltersVisibility.notificationTimeFilters}
+                                                    filters={notificationTimeFilter}
+                                                    setNotificationTimeFilter={setNotificationTimeFilter}/>
+                            <Button kind={"primary"} onClick={() => toggleControlPanelFilter("notificationTimeFilters")}>
+                                Filtros por tempo <Calendar size={20}/>
                             </Button>
                         </div>
                     </div>
