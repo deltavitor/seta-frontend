@@ -10,7 +10,9 @@ interface Notification {
 
     codigoAgravo: string;
 
-    dataNotificacao: Date;
+    // The back-end returns a date in the format dd/mm/YYYY, which
+    // isn't automatically parsed to a JS Date object
+    dataNotificacao: string;
 
     semanaEpidemiologicaNotificacao: string;
 
@@ -20,13 +22,13 @@ interface Notification {
 
     codigoUnidadeNotificacao: number;
 
-    dataDiagnosticoSintoma: Date;
+    dataDiagnosticoSintoma: string;
 
     semanaDiagnosticoSintoma: string;
 
     nomePaciente: string;
 
-    dataNascimento: Date;
+    dataNascimento: string;
 
     idade: number;
 
@@ -70,7 +72,7 @@ interface Notification {
 
     codigoPaisResidencia: string;
 
-    dataInvestigacao: Date;
+    dataInvestigacao: string;
 
     classificacaoFinal: ClassificacaoFinal;
 
@@ -118,19 +120,19 @@ interface Notification {
 
     autoImune: boolean;
 
-    dataColetaExame: Date;
+    dataColetaExame: string;
 
     resultadoExame: ResultadoExame;
 
-    dataColetaNs1: Date;
+    dataColetaNs1: string;
 
     resultadoNs1: ResultadoExame;
 
-    dataColetaIsolamento: Date;
+    dataColetaIsolamento: string;
 
     resultadoIsolamento: ResultadoExame;
 
-    dataColetaRtpcr: Date;
+    dataColetaRtpcr: string;
 
     resultadoRtpcr: ResultadoExame;
 
@@ -138,14 +140,17 @@ interface Notification {
 
     evolucaoCaso: string;
 
-    dataObito: Date;
+    dataObito: string;
 
-    dataEncerramento: Date;
+    dataEncerramento: string;
 
     observacao: string;
 
     // Custom SETA fields that are not part of Sinan
     numeroNotificationLocation: string;
+
+    // Custom SETA fields that are used in the front-end
+    dataNotificacaoParsed?: Date;
 }
 
 export default Notification;
