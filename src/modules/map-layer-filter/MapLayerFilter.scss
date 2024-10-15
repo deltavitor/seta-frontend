@@ -1,0 +1,22 @@
+@use "../../styles/colors";
+
+.seta__map-layer-filter {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  background-color: colors.$white;
+  padding: 0.5rem 0 0.5rem 0;
+  z-index: 1000;
+  width: 14rem;
+  box-shadow: 0 2px 2px colors.$transparent-dark-gray, 0 4px 4px colors.$transparent-dark-gray, 0 8px 8px colors.$transparent-dark-gray;
+}
+
+.seta__map-layer-filter--hidden {
+  display: none;
+}
+
+.seta__map-layer-filter__title {
+  display: block;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+}

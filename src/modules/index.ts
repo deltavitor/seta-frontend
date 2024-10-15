@@ -1,4 +1,5 @@
 import Map from "./map/Map";
+import MapLayerFilter from "./map-layer-filter/MapLayerFilter";
 import NotificationDetails from "./notification-details/NotificationDetails";
 import NotificationFilter from "./notification-filter/NotificationFilter";
 import NotificationPane from "./notification-pane/NotificationPane";
@@ -9,6 +10,7 @@ import StartupCard from "./startup-card/StartupCard";
 
 export {
     Map,
+    MapLayerFilter,
     NotificationDetails,
     NotificationFilter,
     NotificationPane,
