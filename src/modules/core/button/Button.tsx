@@ -5,7 +5,7 @@ import React from "react";
 type ButtonProps = {
     children: React.ReactNode;
     size?: "small";
-    kind: "primary" | "secondary";
+    kind: "primary" | "secondary" | "tertiary";
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     type?: "button" | "submit" | "reset";
 };
@@ -17,6 +17,7 @@ function Button(props: ButtonProps) {
         "seta__button--sm": props.size === "small",
         "seta__button--primary": props.kind === "primary",
         "seta__button--secondary": props.kind === "secondary",
+        "seta__button--tertiary": props.kind === "tertiary",
     });
 
     return (

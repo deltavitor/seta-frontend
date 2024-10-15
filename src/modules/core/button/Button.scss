@@ -36,8 +36,22 @@
 
 .seta__button--secondary {
   background-color: colors.$white;
-  color: colors.$teal-500 ;
-  border: 1px solid colors.$teal-500 ;
+  color: colors.$teal-500;
+  border: 1px solid colors.$teal-500;
+
+  &:hover {
+    background-color: colors.$teal-100;
+  }
+
+  &:active {
+    background-color: colors.$teal-200;
+  }
+}
+
+.seta__button--tertiary {
+  background-color: colors.$white;
+  color: colors.$teal-500;
+  border-color: transparent;
 
   &:hover {
     background-color: colors.$teal-100;
