@@ -1,23 +1,25 @@
 import "./NotificationTimeFilter.scss";
-import type { NotificationTimeFilter } from "../../types";
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import classNames from "classnames";
 import { parseDate } from "../../utils";
 import { Button } from "../core";
+import { NotificationFilterContext } from "../../contexts";
 
 type NotificationTimeFilterProps = {
     hidden?: boolean;
-    filters: NotificationTimeFilter,
-    setNotificationTimeFilter: React.Dispatch<React.SetStateAction<NotificationTimeFilter>>;
 };
 
 function NotificationTimeFilter(props: NotificationTimeFilterProps) {
 
+    const notificationFilters = useContext(NotificationFilterContext);
     const [isInvalid, setIsInvalid] = React.useState(false);
+
     const startDateInputRef = useRef<HTMLInputElement>(null);
     const endDateInputRef = useRef<HTMLInputElement>(null);
 
     const applyFilter = () => {
+        if (!notificationFilters) return;
+
         const startDateValue = startDateInputRef.current?.value;
         const endDateValue = endDateInputRef.current?.value;
         if (!startDateValue || !endDateValue) return setIsInvalid(true);
@@ -30,14 +32,16 @@ function NotificationTimeFilter(props: NotificationTimeFilterProps) {
             startDate: startDate,
             endDate: endDate,
         };
-        props.setNotificationTimeFilter(newFilterState);
+        notificationFilters.setNotificationTimeFilter(newFilterState);
         setIsInvalid(false);
     };
 
     const resetFilter = () => {
+        if (!notificationFilters) return;
+
         if (startDateInputRef.current) startDateInputRef.current.value = "";
         if (endDateInputRef.current) endDateInputRef.current.value = "";
-        props.setNotificationTimeFilter({
+        notificationFilters.setNotificationTimeFilter({
             startDate: undefined,
             endDate: undefined,
         });

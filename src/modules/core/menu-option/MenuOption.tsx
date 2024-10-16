@@ -4,20 +4,24 @@ import { Check } from "lucide-react";
 
 type MenuOptionProps = {
     children: React.ReactNode;
-    checked: boolean;
+    checked?: boolean;
     handleToggle?: (isChecked: boolean) => void;
 };
 
 function MenuOption(props: MenuOptionProps) {
 
+    const [isChecked, setChecked] = React.useState(props.checked || false);
+
     const toggle = () => {
-        props.handleToggle && props.handleToggle(!props.checked);
+        const newIsChecked = !isChecked;
+        setChecked(newIsChecked);
+        props.handleToggle && props.handleToggle(newIsChecked);
     };
 
     return (
         <button className={"seta__menu-option"} onClick={toggle}>
             {props.children}
-            <Check className={"seta__menu-option__check-icon"} size={20} {...(props.checked ? {visibility: "visible"} : {visibility: "hidden"})}/>
+            <Check className={"seta__menu-option__check-icon"} size={20} {...(isChecked ? {visibility: "visible"} : {visibility: "hidden"})}/>
         </button>
     );
 }
