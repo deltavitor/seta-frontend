@@ -20,6 +20,10 @@
   margin-left: 0.5rem;
 }
 
+.seta__button--icon-only .lucide {
+  margin: 0;
+}
+
 .seta__button--primary {
   background-color: colors.$teal-500 ;
   color: colors.$white;

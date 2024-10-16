@@ -8,6 +8,7 @@ type ButtonProps = {
     kind: "primary" | "secondary" | "tertiary";
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     type?: "button" | "submit" | "reset";
+    iconOnly?: boolean;
 };
 
 function Button(props: ButtonProps) {
@@ -18,6 +19,7 @@ function Button(props: ButtonProps) {
         "seta__button--primary": props.kind === "primary",
         "seta__button--secondary": props.kind === "secondary",
         "seta__button--tertiary": props.kind === "tertiary",
+        "seta__button--icon-only": props.iconOnly,
     });
 
     return (
