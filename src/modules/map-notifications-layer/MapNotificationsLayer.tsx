@@ -1,20 +1,20 @@
 import { LayerGroup, LayersControl, Marker } from "react-leaflet";
-import React, { type ReactNode } from "react";
-import type { Notification, NotificationLocation } from "../../types";
+import React, { type ReactNode, useContext } from "react";
+import type { NotificationLocation } from "../../types";
 import { Marker as SetaMarker } from "../core";
 import { defaultMarkerSize, selectedNotificationLocationIcon } from "../../consts";
 import { DivIcon } from "leaflet";
 import { renderToString } from "react-dom/server";
 import { getNotificationIcon } from "../../utils";
+import { SelectedNotificationContext } from "../../contexts";
 
 type MapNotificationsLayer = {
     notificationLocations?: Array<NotificationLocation>,
-    selectedNotificationLocation?: NotificationLocation,
-    setSelectedNotificationLocation: React.Dispatch<React.SetStateAction<NotificationLocation | undefined>>,
-    setSelectedNumberoNotificacao: React.Dispatch<React.SetStateAction<Notification["numeroNotificacao"]>>,
 };
 
 function MapNotificationsLayer(props: MapNotificationsLayer) {
+
+    const selectedNofication = useContext(SelectedNotificationContext);
 
     const getNotificationLocationMarker = (
         index: number,
@@ -62,18 +62,20 @@ function MapNotificationsLayer(props: MapNotificationsLayer) {
     };
 
     const handleMarkerClick = (notificationLocation: NotificationLocation) => {
-        props.setSelectedNotificationLocation(notificationLocation)
+        if (!selectedNofication) return;
+
+        selectedNofication.setSelectedNotificationLocation(notificationLocation)
         if (notificationLocation.notifications.length === 1)
-            props.setSelectedNumberoNotificacao(notificationLocation.notifications[0].numeroNotificacao);
+            selectedNofication.setSelectedNumeroNotificacao(notificationLocation.notifications[0].numeroNotificacao);
         else
-            props.setSelectedNumberoNotificacao("-1");
+            selectedNofication.setSelectedNumeroNotificacao("-1");
     };
 
     return (
         <LayersControl.Overlay name={"notifications"} checked={true}>
             <LayerGroup>
                 {props.notificationLocations?.map((notificationLocation, index) => {
-                    return getNotificationLocationMarker(index, notificationLocation, props.selectedNotificationLocation)
+                    return getNotificationLocationMarker(index, notificationLocation, selectedNofication?.selectedNotificationLocation)
                 })}
             </LayerGroup>
         </LayersControl.Overlay>

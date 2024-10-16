@@ -1,13 +1,10 @@
 import { MapContainer, TileLayer } from "react-leaflet";
-import type { Notification, NotificationLocation } from "../../types";
+import type { NotificationLocation } from "../../types";
 import React from "react";
 import { MapLayersControl } from "../index";
 
 type MapProps = {
     notificationLocations: Array<NotificationLocation>;
-    setSelectedNumeroNotificacao: React.Dispatch<React.SetStateAction<Notification["numeroNotificacao"]>>;
-    selectedNotificationLocation?: NotificationLocation;
-    setSelectedNotificationLocation: React.Dispatch<React.SetStateAction<NotificationLocation | undefined>>;
     earliestNotificationDate: Date,
     latestNotificationDate: Date,
 };
@@ -25,9 +22,6 @@ function Map(props: MapProps) {
             />
             <MapLayersControl
                 notificationLocations={props.notificationLocations}
-                selectedNotificationLocation={props.selectedNotificationLocation}
-                setSelectedNumeroNotificacao={props.setSelectedNumeroNotificacao}
-                setSelectedNotificationLocation={props.setSelectedNotificationLocation}
                 earliestNotificationDate={props.earliestNotificationDate}
                 latestNotificationDate={props.latestNotificationDate}
             />

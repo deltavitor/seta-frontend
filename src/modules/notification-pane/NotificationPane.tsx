@@ -1,19 +1,15 @@
 import "./NotificationPane.scss"
 import "../../styles/grid.scss"
-import type { Notification, NotificationLocation } from "../../types";
+import type { Notification } from "../../types";
 import { NotificationDetails, NotificationSummaryList } from "../index";
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import classNames from "classnames";
+import { SelectedNotificationContext } from "../../contexts";
 
-type NotificationPaneOptions = {
-    numeroNotificacao: Notification["numeroNotificacao"],
-    setNumeroNotificacao: React.Dispatch<React.SetStateAction<Notification["numeroNotificacao"]>>;
-    notificationLocation?: NotificationLocation;
-};
+function NotificationPane() {
 
-function NotificationPane(props: NotificationPaneOptions) {
-
+    const selectedNofication = useContext(SelectedNotificationContext);
     const previousNumeroNotificacaoRef = useRef<Notification["numeroNotificacao"]>("0");
     const [isExpanded, setIsExpanded] = React.useState(false);
 
@@ -23,9 +19,10 @@ function NotificationPane(props: NotificationPaneOptions) {
     });
 
     useEffect(() => {
-        setIsExpanded(props.numeroNotificacao !== "0");
-        previousNumeroNotificacaoRef.current = props.numeroNotificacao;
-    }, [props.numeroNotificacao]);
+        setIsExpanded(selectedNofication?.selectedNumeroNotificacao !== "0");
+        if (selectedNofication)
+            previousNumeroNotificacaoRef.current = selectedNofication.selectedNumeroNotificacao;
+    }, [selectedNofication?.selectedNumeroNotificacao]);
 
     return (
         <div className={classes}>
@@ -34,16 +31,16 @@ function NotificationPane(props: NotificationPaneOptions) {
             </button>
             {
                 isExpanded ?
-                    props.notificationLocation && props.numeroNotificacao !== "-1" && props.numeroNotificacao !== "0" ?
+                    selectedNofication?.selectedNotificationLocation && selectedNofication?.selectedNumeroNotificacao !== "-1" && selectedNofication?.selectedNumeroNotificacao !== "0" ?
                         <div className={"seta__notification-pane__body"}>
-                            <button className={"seta__notification-pane__back-button"} onClick={() => props.setNumeroNotificacao("-1")}>
+                            <button className={"seta__notification-pane__back-button"} onClick={() => selectedNofication?.setSelectedNumeroNotificacao("-1")}>
                                 <ArrowLeft size={18} style={{marginRight: "0.5rem"}}/>Voltar
                             </button>
-                            <NotificationDetails numeroNotificacao={props.numeroNotificacao} notificationLocation={props.notificationLocation}/>
+                            <NotificationDetails numeroNotificacao={selectedNofication?.selectedNumeroNotificacao} notificationLocation={selectedNofication.selectedNotificationLocation}/>
                         </div>
-                        : props.notificationLocation ?
+                        : selectedNofication?.selectedNotificationLocation ?
                             <div className={"seta__notification-pane__body"}>
-                                <NotificationSummaryList setNumeroNotificacao={props.setNumeroNotificacao} notificationLocation={props.notificationLocation}/>
+                                <NotificationSummaryList setNumeroNotificacao={selectedNofication.setSelectedNumeroNotificacao} notificationLocation={selectedNofication.selectedNotificationLocation}/>
                             </div>
                         :
                         <div>

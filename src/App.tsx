@@ -4,9 +4,9 @@ import { Map, MapControlPanel, StartupCard } from "./modules";
 import { useFindNotificationLocations } from "./hooks";
 import React, { useEffect, useState } from "react";
 import { parseDate } from "./utils";
-import type { Notification, NotificationLocation } from "./types";
+import type { NotificationLocation } from "./types";
 import NotificationPane from "./modules/notification-pane/NotificationPane";
-import { NotificationFilterContextProvider } from "./contexts";
+import { NotificationFilterContextProvider, SelectedNotificationContextProvider } from "./contexts";
 
 function App() {
 
@@ -14,8 +14,6 @@ function App() {
 
     const [notificationLocations, setNotificationLocations] = useState<Array<NotificationLocation>>();
     const [validNotificationLocations, setValidNotificationLocations] = useState<Array<NotificationLocation>>();
-    const [selectedNotificationLocation, setSelectedNotificationLocation] = useState<NotificationLocation>();
-    const [selectedNumeroNotificacao, setSelectedNumeroNotificacao] = useState<Notification["numeroNotificacao"]>("0");
     const [earliestDate, setEarliestDate] = useState(new Date());
     const [latestDate, setLatestDate] = useState(new Date(0));
 
@@ -79,22 +77,20 @@ function App() {
             { !isLoading && notificationLocations?.length == 0 && <StartupCard /> }
             { notificationLocations && notificationLocations.length > 0 && !isLoading &&
                 <div>
-                    <NotificationPane numeroNotificacao={selectedNumeroNotificacao} setNumeroNotificacao={setSelectedNumeroNotificacao}
-                                      notificationLocation={selectedNotificationLocation}/>
-                    <NotificationFilterContextProvider>
-                        <Map
-                            notificationLocations={validNotificationLocations || notificationLocations}
-                            setSelectedNumeroNotificacao={setSelectedNumeroNotificacao}
-                            selectedNotificationLocation={selectedNotificationLocation}
-                            setSelectedNotificationLocation={setSelectedNotificationLocation}
-                            earliestNotificationDate={earliestDate}
-                            latestNotificationDate={latestDate}
-                        />
-                        <MapControlPanel
-                            earliestNotificationDate={earliestDate}
-                            latestNotificationDate={latestDate}
-                        />
-                    </NotificationFilterContextProvider>
+                    <SelectedNotificationContextProvider>
+                        <NotificationPane />
+                        <NotificationFilterContextProvider>
+                            <Map
+                                notificationLocations={validNotificationLocations || notificationLocations}
+                                earliestNotificationDate={earliestDate}
+                                latestNotificationDate={latestDate}
+                            />
+                            <MapControlPanel
+                                earliestNotificationDate={earliestDate}
+                                latestNotificationDate={latestDate}
+                            />
+                        </NotificationFilterContextProvider>
+                    </SelectedNotificationContextProvider>
                 </div>
             }
         </div>

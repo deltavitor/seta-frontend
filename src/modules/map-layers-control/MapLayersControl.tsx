@@ -9,9 +9,6 @@ import { useInterval } from "../../hooks";
 
 type MapLayersControlProps = {
     notificationLocations: Array<NotificationLocation>;
-    setSelectedNumeroNotificacao: React.Dispatch<React.SetStateAction<Notification["numeroNotificacao"]>>;
-    selectedNotificationLocation?: NotificationLocation;
-    setSelectedNotificationLocation: React.Dispatch<React.SetStateAction<NotificationLocation | undefined>>;
     earliestNotificationDate: Date,
     latestNotificationDate: Date,
 };
@@ -88,9 +85,6 @@ function MapLayersControl(props: MapLayersControlProps) {
         <LayersControl position={"topleft"}>
             <MapNotificationsLayer
                 notificationLocations={filteredNotificationLocations}
-                selectedNotificationLocation={props.selectedNotificationLocation}
-                setSelectedNotificationLocation={props.setSelectedNotificationLocation}
-                setSelectedNumberoNotificacao={props.setSelectedNumeroNotificacao}
             />
             <MapHeatmapLayer
                 notificationLocations={filteredNotificationLocations}
