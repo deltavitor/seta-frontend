@@ -24,9 +24,9 @@ function App() {
 
         notificationLocations?.forEach(notificationLocation => {
             notificationLocation.notifications.forEach((notification) => {
-                if (notification.dataNotificacaoParsed) {
-                    if (notification.dataNotificacaoParsed < earliest) earliest = notification.dataNotificacaoParsed;
-                    if (notification.dataNotificacaoParsed > latest) latest = notification.dataNotificacaoParsed;
+                if (notification.dataDiagnosticoSintomaParsed) {
+                    if (notification.dataDiagnosticoSintomaParsed < earliest) earliest = notification.dataDiagnosticoSintomaParsed;
+                    if (notification.dataDiagnosticoSintomaParsed > latest) latest = notification.dataDiagnosticoSintomaParsed;
                 }
             });
         });

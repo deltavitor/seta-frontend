@@ -26,8 +26,8 @@ function MapLayersControl(props: MapLayersControlProps) {
         startDate: Date,
         endDate: Date
     ) => {
-        return notification.dataNotificacaoParsed &&
-            notification.dataNotificacaoParsed >= startDate && notification.dataNotificacaoParsed <= endDate;
+        return notification.dataDiagnosticoSintomaParsed &&
+            notification.dataDiagnosticoSintomaParsed >= startDate && notification.dataDiagnosticoSintomaParsed <= endDate;
     };
 
     useEffect(() => {
