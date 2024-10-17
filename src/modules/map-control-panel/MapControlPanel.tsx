@@ -30,10 +30,10 @@ function MapControlPanel(props: MapControlPanelProps) {
         <div style={{
             position: "absolute",
             zIndex: 1000,
-            left: 20,
-            bottom: 20,
+            left: 8,
+            bottom: 32,
             display: "inline-flex",
-            gap: "2rem"
+            gap: "2rem",
         }}>
             <div style={{position: "relative", display: "inline-block"}}>
                 <MapLayerFilter hidden={!controlPanelFiltersVisibility.mapLayerFilters}/>

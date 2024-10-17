@@ -9,7 +9,6 @@ import type { Notification, NotificationLocation } from "../../types";
 import { getNotificationType } from "../../utils";
 import { NotificationFilterContext } from "../../contexts";
 import NotificationSummary from "../../types/notification-summary";
-import { useInterval } from "../../hooks";
 
 type MapLayersControlProps = {
     notificationLocations: Array<NotificationLocation>;
@@ -30,23 +29,6 @@ function MapLayersControl(props: MapLayersControlProps) {
         return notification.dataNotificacaoParsed &&
             notification.dataNotificacaoParsed >= startDate && notification.dataNotificacaoParsed <= endDate;
     };
-
-    useInterval(() => {
-        const startDate = props.earliestNotificationDate;
-        if (!notificationFilters) return;
-
-        notificationFilters.setNotificationTimeFilter(prevFilter => {
-            if (!prevFilter.endDate) return prevFilter;
-            const endDate = new Date(prevFilter.endDate);
-            endDate.setDate(endDate.getDate() + 1);
-            if (endDate > props.latestNotificationDate) notificationFilters.setTimelineIsPlaying(false);
-
-            return {
-                startDate: startDate,
-                endDate: endDate,
-            };
-        });
-    }, notificationFilters?.timelineIsPlaying ? notificationFilters?.timelineDelay : null);
 
     useEffect(() => {
         if (!notificationFilters) return;
