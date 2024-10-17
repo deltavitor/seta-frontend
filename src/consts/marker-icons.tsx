@@ -1,57 +1,37 @@
 import { DivIcon } from "leaflet";
 import { renderToString } from "react-dom/server";
-import { Marker } from "../modules/core";
+import { Marker, type MarkerProps } from "../modules/core";
 import { MapPin } from "lucide-react";
 import { defaultMarkerSize, selectedNotificationLocationMarkerSize } from "./marker-icon-sizes";
 import colors from "./../styles/colors.module.scss";
 
-const yellowDiamondIcon = new DivIcon({
-    html: renderToString(
-        <Marker color={"yellow"} shape={"diamond"} markerSize={defaultMarkerSize}/>
-    ),
-    iconSize: [defaultMarkerSize, defaultMarkerSize],
-    className: "",
-});
+const createMarkerIcon = (color: MarkerProps["color"], shape: MarkerProps["shape"], markerSize: MarkerProps["markerSize"], isBlurred: MarkerProps["isBlurred"] = false) => {
+    return new DivIcon({
+        html: renderToString(
+            <Marker color={color} shape={shape} markerSize={markerSize} isBlurred={isBlurred} />
+        ),
+        iconSize: [markerSize, markerSize],
+        className: "",
+    });
+};
 
-const redDiamondIcon = new DivIcon({
-    html: renderToString(
-        <Marker color={"red"} shape={"diamond"} markerSize={defaultMarkerSize}/>
-    ),
-    iconSize: [defaultMarkerSize, defaultMarkerSize],
-    className: "",
-});
+const yellowDiamondIcon = createMarkerIcon("yellow", "diamond", defaultMarkerSize);
+const blurredYellowDiamondIcon = createMarkerIcon("yellow", "diamond", defaultMarkerSize, true);
 
-const blueDiamondIcon = new DivIcon({
-    html: renderToString(
-        <Marker color={"blue"} shape={"diamond"} markerSize={defaultMarkerSize}/>
-    ),
-    iconSize: [defaultMarkerSize, defaultMarkerSize],
-    className: "",
-});
+const redDiamondIcon = createMarkerIcon("red", "diamond", defaultMarkerSize);
+const blurredRedDiamondIcon = createMarkerIcon("red", "diamond", defaultMarkerSize, true);
 
-const yellowCircleIcon = new DivIcon({
-    html: renderToString(
-        <Marker color={"yellow"} shape={"circle"} markerSize={defaultMarkerSize}/>
-    ),
-    iconSize: [defaultMarkerSize, defaultMarkerSize],
-    className: "",
-});
+const blueDiamondIcon = createMarkerIcon("blue", "diamond", defaultMarkerSize);
+const blurredBlueDiamondIcon = createMarkerIcon("blue", "diamond", defaultMarkerSize, true);
 
-const redCircleIcon = new DivIcon({
-    html: renderToString(
-        <Marker color={"red"} shape={"circle"} markerSize={defaultMarkerSize}/>
-    ),
-    iconSize: [defaultMarkerSize, defaultMarkerSize],
-    className: "",
-});
+const yellowCircleIcon = createMarkerIcon("yellow", "circle", defaultMarkerSize);
+const blurredYellowCircleIcon = createMarkerIcon("yellow", "circle", defaultMarkerSize, true);
 
-const blueCircleIcon = new DivIcon({
-    html: renderToString(
-        <Marker color={"blue"} shape={"circle"} markerSize={defaultMarkerSize}/>
-    ),
-    iconSize: [defaultMarkerSize, defaultMarkerSize],
-    className: "",
-});
+const redCircleIcon = createMarkerIcon("red", "circle", defaultMarkerSize);
+const blurredRedCircleIcon = createMarkerIcon("red", "circle", defaultMarkerSize, true);
+
+const blueCircleIcon = createMarkerIcon("blue", "circle", defaultMarkerSize);
+const blurredBlueCircleIcon = createMarkerIcon("blue", "circle", defaultMarkerSize, true);
 
 const selectedNotificationLocationIcon = new DivIcon({
     html: renderToString(
@@ -63,10 +43,16 @@ const selectedNotificationLocationIcon = new DivIcon({
 
 export {
     yellowDiamondIcon,
+    blurredYellowDiamondIcon,
     redDiamondIcon,
+    blurredRedDiamondIcon,
     blueDiamondIcon,
+    blurredBlueDiamondIcon,
     yellowCircleIcon,
+    blurredYellowCircleIcon,
     redCircleIcon,
+    blurredRedCircleIcon,
     blueCircleIcon,
+    blurredBlueCircleIcon,
     selectedNotificationLocationIcon,
 };
