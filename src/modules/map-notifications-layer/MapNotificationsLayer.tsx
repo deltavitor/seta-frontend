@@ -1,12 +1,9 @@
-import { LayerGroup, LayersControl, Marker } from "react-leaflet";
-import React, { type ReactNode, useContext } from "react";
+import { LayerGroup, LayersControl } from "react-leaflet";
+import React, { useContext, useEffect } from "react";
 import type { NotificationLocation } from "../../types";
-import { Marker as SetaMarker } from "../core";
-import { defaultMarkerSize, selectedNotificationLocationIcon } from "../../consts";
-import { DivIcon } from "leaflet";
-import { renderToString } from "react-dom/server";
-import { getNotificationIcon } from "../../utils";
+import { getNotificationLocationMarker, isWithinDateRange, isWithinRadius } from "../../utils";
 import { SelectedNotificationContext } from "../../contexts";
+import { spreadingPeriod, spreadingRadius } from "../../consts";
 
 type MapNotificationsLayer = {
     notificationLocations?: Array<NotificationLocation>,
@@ -15,51 +12,6 @@ type MapNotificationsLayer = {
 function MapNotificationsLayer(props: MapNotificationsLayer) {
 
     const selectedNofication = useContext(SelectedNotificationContext);
-
-    const getNotificationLocationMarker = (
-        index: number,
-        notificationLocation: NotificationLocation,
-        selectedNotificationLocation: NotificationLocation | undefined,
-    ): ReactNode => {
-
-        const { latitude, longitude } = notificationLocation;
-        const isSelectedNotificationLocation = notificationLocation.numeroNotificationLocation === selectedNotificationLocation?.numeroNotificationLocation;
-
-        const firstNotification = notificationLocation.notifications[0];
-        if (!firstNotification) return null;
-
-        let icon;
-        if (isSelectedNotificationLocation)
-            icon = selectedNotificationLocationIcon;
-        else if (notificationLocation.notifications.length > 1)
-            icon = new DivIcon({
-                html: renderToString(
-                    <SetaMarker
-                        color={"white"}
-                        shape={"circle"}
-                        markerSize={defaultMarkerSize}
-                        label={notificationLocation.notifications.length.toString()}
-                    />
-                ),
-                iconSize: [defaultMarkerSize, defaultMarkerSize],
-                className: "",
-            });
-        else
-            icon = getNotificationIcon(firstNotification);
-
-        // TODO update this to better handle the focused map marker
-
-        return (
-            <Marker
-                key={index}
-                icon={icon}
-                position={[latitude, longitude]}
-                eventHandlers={{
-                    click: () => handleMarkerClick(notificationLocation)
-                }}
-            />
-        );
-    };
 
     const handleMarkerClick = (notificationLocation: NotificationLocation) => {
         if (!selectedNofication) return;
@@ -71,11 +23,49 @@ function MapNotificationsLayer(props: MapNotificationsLayer) {
             selectedNofication.setSelectedNumeroNotificacao("-1");
     };
 
+    useEffect(() => {
+        if (!selectedNofication) return;
+
+        selectedNofication.setRelatedNotificationLocations(props.notificationLocations?.map(relatedNotificationLocation => {
+            const relatedNotifications = relatedNotificationLocation.notifications.filter(notification => {
+                if (!notification.dataDiagnosticoSintomaParsed || !selectedNofication.selectedNotificationDataSintomas || !selectedNofication.selectedNotificationLocation)
+                    return false;
+                if (notification.numeroNotificacao === selectedNofication.selectedNumeroNotificacao)
+                    return false;
+
+                if (!isWithinRadius(
+                    [relatedNotificationLocation.latitude, relatedNotificationLocation.longitude],
+                    [selectedNofication.selectedNotificationLocation.latitude, selectedNofication.selectedNotificationLocation.longitude],
+                    // Spreading radius in Km
+                    spreadingRadius / 1000
+                ))
+                    return false;
+
+                return isWithinDateRange(
+                    notification.dataDiagnosticoSintomaParsed,
+                    selectedNofication.selectedNotificationDataSintomas,
+                    spreadingPeriod
+                );
+            });
+
+            return {
+                ...relatedNotificationLocation,
+                notifications: relatedNotifications,
+            };
+        }).filter(notificationLocation => notificationLocation.notifications.length > 0));
+    }, [selectedNofication?.selectedNotificationDataSintomas]);
+
     return (
         <LayersControl.Overlay name={"notifications"} checked={true}>
             <LayerGroup>
                 {props.notificationLocations?.map((notificationLocation, index) => {
-                    return getNotificationLocationMarker(index, notificationLocation, selectedNofication?.selectedNotificationLocation)
+                    return getNotificationLocationMarker(
+                        index,
+                        notificationLocation,
+                        selectedNofication?.selectedNotificationLocation,
+                        selectedNofication?.selectedNumeroNotificacao !== "0" && selectedNofication?.selectedNumeroNotificacao !== "-1",
+                        handleMarkerClick
+                    );
                 })}
             </LayerGroup>
         </LayersControl.Overlay>

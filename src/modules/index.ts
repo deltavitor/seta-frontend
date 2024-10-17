@@ -4,6 +4,7 @@ import MapHeatmapLayer from "./map-heatmap-layer/MapHeatmapLayer";
 import MapLayerFilter from "./map-layer-filter/MapLayerFilter";
 import MapLayersControl from "./map-layers-control/MapLayersControl";
 import MapNotificationsLayer from "./map-notifications-layer/MapNotificationsLayer";
+import MapRelatedNotificationsLayer from "./map-related-notifications-layer/MapRelatedNotificationsLayer";
 import NotificationDetails from "./notification-details/NotificationDetails";
 import NotificationPane from "./notification-pane/NotificationPane";
 import NotificationPredictionBadge from "./notification-prediction-badge/NotificationPredictionBadge";
@@ -21,6 +22,7 @@ export {
     MapLayerFilter,
     MapLayersControl,
     MapNotificationsLayer,
+    MapRelatedNotificationsLayer,
     NotificationDetails,
     NotificationPane,
     NotificationPredictionBadge,

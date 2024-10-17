@@ -1,4 +1,8 @@
-import { MapHeatmapLayer, MapNotificationsLayer } from "../index";
+import {
+    MapHeatmapLayer,
+    MapNotificationsLayer,
+    MapRelatedNotificationsLayer
+} from "../index";
 import { LayersControl } from "react-leaflet";
 import React, { useContext, useEffect, useState } from "react";
 import type { Notification, NotificationLocation } from "../../types";
@@ -17,9 +21,6 @@ function MapLayersControl(props: MapLayersControlProps) {
 
     const [filteredNotificationLocations, setFilteredNotificationLocations] = useState<Array<NotificationLocation>>();
     const notificationFilters = useContext(NotificationFilterContext);
-
-    // These inputs are programmatically toggled by our custom controls
-    const layerControlInputs = document.querySelectorAll<HTMLInputElement>(".leaflet-control-layers-selector");
 
     const isNotificationWithinTimeRange = (
         notification: Notification | NotificationSummary,
@@ -83,12 +84,9 @@ function MapLayersControl(props: MapLayersControlProps) {
 
     return (
         <LayersControl position={"topleft"}>
-            <MapNotificationsLayer
-                notificationLocations={filteredNotificationLocations}
-            />
-            <MapHeatmapLayer
-                notificationLocations={filteredNotificationLocations}
-            />
+            <MapNotificationsLayer notificationLocations={filteredNotificationLocations} />
+            <MapRelatedNotificationsLayer />
+            <MapHeatmapLayer notificationLocations={filteredNotificationLocations} />
         </LayersControl>
     );
 }
