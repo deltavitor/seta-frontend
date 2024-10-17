@@ -1,6 +1,6 @@
 import "@fontsource-variable/inter";
 import "./App.scss";
-import { Map, MapControlPanel, StartupCard } from "./modules";
+import { Map, MapControlPanel, MapFooter, StartupCard } from "./modules";
 import { useFindNotificationLocations } from "./hooks";
 import React, { useEffect, useState } from "react";
 import { parseDate } from "./utils";
@@ -85,6 +85,10 @@ function App() {
                                 latestNotificationDate={latestDate}
                             />
                             <MapControlPanel
+                                earliestNotificationDate={earliestDate}
+                                latestNotificationDate={latestDate}
+                            />
+                            <MapFooter
                                 earliestNotificationDate={earliestDate}
                                 latestNotificationDate={latestDate}
                             />

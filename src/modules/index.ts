@@ -1,4 +1,5 @@
 import Map from "./map/Map";
+import MapFooter from "./map-footer/MapFooter";
 import MapControlPanel from "./map-control-panel/MapControlPanel";
 import MapHeatmapLayer from "./map-heatmap-layer/MapHeatmapLayer";
 import MapLayerFilter from "./map-layer-filter/MapLayerFilter";
@@ -18,6 +19,7 @@ import StartupCard from "./startup-card/StartupCard";
 export {
     Map,
     MapControlPanel,
+    MapFooter,
     MapHeatmapLayer,
     MapLayerFilter,
     MapLayersControl,

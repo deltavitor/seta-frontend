@@ -1,0 +1,22 @@
+@use "../../styles/colors";
+
+.seta__map-footer {
+  background-color: colors.$white;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+  padding: 0.125rem 0.5rem;
+  box-sizing: border-box;
+  font-size: 0.875rem;
+  border-top: 0.8px solid colors.$transparent-dark-gray;
+}
+
+.seta__map-footer__label {
+  color: colors.$gray-800;
+}
+
+.seta__map-footer__field {
+  padding: 0 0.75rem 0 0;
+}
