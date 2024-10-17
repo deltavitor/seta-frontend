@@ -1,5 +1,4 @@
 import "./MapLayerFilter.scss";
-import type { MapLayer } from "../../types";
 import React, { useContext } from "react";
 import { MenuOption } from "../core";
 import classNames from "classnames";
@@ -14,14 +13,18 @@ function MapLayerFilter(props: MapLayerFilterProps) {
 
     const notificationFilters = useContext(NotificationFilterContext);
 
-    const toggleFilter = (filterName: MapLayer, isEnabled: boolean) => {
-        if (!notificationFilters) return;
+    const toggleNotificationLayers = () => {
+        const layerControlInputs = document.querySelectorAll<HTMLInputElement>(".leaflet-control-layers-selector");
+        const notificationsLayerInput = layerControlInputs[0];
+        const relatedNotificationsLayerInput = layerControlInputs[1];
+        notificationsLayerInput.click();
+        relatedNotificationsLayerInput.click();
+    };
 
-        const newFiltersState = {
-            ...notificationFilters.mapLayerFilter,
-            [filterName]: isEnabled,
-        };
-        notificationFilters.setMapLayerFilter(newFiltersState);
+    const toggleHeatmapLayer = () => {
+        const layerControlInputs = document.querySelectorAll<HTMLInputElement>(".leaflet-control-layers-selector");
+        const heatmapLayerInput = layerControlInputs[2];
+        heatmapLayerInput.click();
     };
 
     const classes = classNames({
@@ -32,11 +35,11 @@ function MapLayerFilter(props: MapLayerFilterProps) {
     return (
         <div className={classes}>
             <span className={"seta__map-layer-filter__title"}>Camadas</span>
-            <MenuOption handleToggle={(isChecked) => toggleFilter("notifications", isChecked)} checked={notificationFilters?.mapLayerFilter.notifications}>
+            <MenuOption handleToggle={toggleNotificationLayers} checked={notificationFilters?.mapLayerFilter.notifications}>
                 <MapPin size={20} />
                 <span>Notificações</span>
             </MenuOption>
-            <MenuOption handleToggle={(isChecked) => toggleFilter("heatmap", isChecked)} checked={notificationFilters?.mapLayerFilter.heatmap}>
+            <MenuOption handleToggle={toggleHeatmapLayer} checked={notificationFilters?.mapLayerFilter.heatmap}>
                 <Thermometer size={20} />
                 <span>Mapa de calor</span>
             </MenuOption>

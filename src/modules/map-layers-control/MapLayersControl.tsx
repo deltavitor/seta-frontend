@@ -70,18 +70,6 @@ function MapLayersControl(props: MapLayersControlProps) {
         }).filter(notificationLocation => notificationLocation.notifications.length > 0));
     }, [notificationFilters?.notificationTypeFilter, notificationFilters?.notificationTimeFilter]);
 
-    useEffect(() => {
-        layerControlInputs.forEach(input => {
-            input.nextElementSibling && input.nextElementSibling.textContent?.trim() === "notifications" ? input.click() : null;
-        });
-    }, [notificationFilters?.mapLayerFilter.notifications]);
-
-    useEffect(() => {
-        layerControlInputs.forEach(input => {
-            input.nextElementSibling && input.nextElementSibling.textContent?.trim() === "heatmap" ? input.click() : null;
-        });
-    }, [notificationFilters?.mapLayerFilter.heatmap]);
-
     return (
         <LayersControl position={"topleft"}>
             <MapNotificationsLayer notificationLocations={filteredNotificationLocations} />
