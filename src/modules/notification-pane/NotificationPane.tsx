@@ -45,13 +45,18 @@ function NotificationPane() {
                         </div>
                         : selectedNofication?.selectedNotificationLocation ?
                             <div className={"seta__notification-pane__body"}>
-                                <NotificationSummaryList setNumeroNotificacao={selectedNofication.setSelectedNumeroNotificacao} notificationLocation={selectedNofication.selectedNotificationLocation}/>
+                                <button className={"seta__notification-pane__back-button"} onClick={() => { selectedNofication?.setSelectedNotificationLocation(undefined); selectedNofication?.setSelectedNumeroNotificacao("0") }}>
+                                    <ArrowLeft size={18} style={{marginRight: "0.5rem"}}/>Voltar
+                                </button>
+                                <NotificationSummaryList
+                                    setNumeroNotificacao={selectedNofication.setSelectedNumeroNotificacao}
+                                    notificationLocation={selectedNofication.selectedNotificationLocation}/>
                             </div>
-                        :
-                        <div>
-                            Selecione uma notificação no mapa
-                        </div>
-                : null
+                            :
+                            <div>
+                                Selecione uma notificação no mapa
+                            </div>
+                    : null
             }
         </div>
     );
