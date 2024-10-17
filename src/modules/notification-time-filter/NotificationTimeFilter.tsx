@@ -56,7 +56,6 @@ function NotificationTimeFilter(props: NotificationTimeFilterProps) {
     return (
         <div className={classes}>
             <div className={"seta__notification-time-filter__header"}>
-                <span className={"seta__notification-time-filter__title"}>Filtros de tempo</span>
                 <span className={"seta__notification-time-filter__subtitle"}>
                     Filtre notificações com datas de notificação dentro do período especificado
                 </span>
