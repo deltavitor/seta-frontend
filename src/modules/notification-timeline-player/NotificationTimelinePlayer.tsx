@@ -30,6 +30,14 @@ function NotificationTimelinePlayer(props: NotificationTimelinePlayerProps) {
                 });
     };
 
+    const stopTimeline = () => {
+        notificationFilters?.setNotificationTimeFilter({
+            startDate: undefined,
+            endDate: undefined,
+        });
+        notificationFilters?.setTimelineIsPlaying(false);
+    };
+
     useInterval(() => {
         if (!notificationFilters) return;
 
@@ -81,8 +89,8 @@ function NotificationTimelinePlayer(props: NotificationTimelinePlayerProps) {
                 <Button kind={"tertiary"} iconOnly={true} onClick={playTimeline}>
                     {notificationFilters?.timelineIsPlaying ? <Pause size={18}/> : <Play size={18}/>}
                 </Button>
-                <Button kind={"tertiary"} iconOnly={true} title={"Parar linha do tempo"}>
-                    <Square size={18}/>
+                <Button kind={"tertiary"} onClick={stopTimeline} iconOnly={true} title={"Parar linha do tempo"}>
+                    <Square size={18} />
                 </Button>
                 <Button kind={"tertiary"} onClick={updateTimelineDelay} title={"Velocidade de reprodução"}>
                     {timelineSpeed}X
