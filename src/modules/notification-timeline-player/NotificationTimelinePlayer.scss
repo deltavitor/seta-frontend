@@ -5,9 +5,8 @@
   bottom: 100%;
   left: 0;
   background-color: colors.$white;
-  padding: 1rem;
+  padding: 0.75rem;
   z-index: 1000;
-  width: 10rem;
   box-shadow: 0 2px 2px colors.$transparent-dark-gray, 0 4px 4px colors.$transparent-dark-gray, 0 8px 8px colors.$transparent-dark-gray;
 }
 
@@ -15,13 +14,12 @@
   display: none;
 }
 
-.seta__notification-timeline-player__title {
-  display: block;
-  font-weight: 600;
-  padding: 0 0 0.75rem 0;
+.seta__notification-timeline-player__controls {
+  display: inline-flex;
 }
 
-.seta__notification-timeline-player__body {
-  flex-direction: column;
-  padding: 0 0 0.75rem 0;
+.seta__notification-timeline-player__label {
+  font-size: 1rem;
+  font-weight: 400;
+  color: colors.$gray-800;
 }
