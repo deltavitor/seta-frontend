@@ -1,5 +1,9 @@
-.seta__marker__label {
+.seta__marker--blurred {
+  transition: filter 0.3s, opacity 0.3s;
+  filter: brightness(0.8);
+}
 
+.seta__marker__label {
   font-size: 1rem;
   font-weight: 500;
 }
