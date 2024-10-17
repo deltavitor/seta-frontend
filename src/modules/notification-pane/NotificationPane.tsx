@@ -36,7 +36,12 @@ function NotificationPane() {
                             <button className={"seta__notification-pane__back-button"} onClick={() => selectedNofication?.setSelectedNumeroNotificacao("-1")}>
                                 <ArrowLeft size={18} style={{marginRight: "0.5rem"}}/>Voltar
                             </button>
-                            <NotificationDetails numeroNotificacao={selectedNofication?.selectedNumeroNotificacao} notificationLocation={selectedNofication.selectedNotificationLocation}/>
+                            <NotificationDetails
+                                numeroNotificacao={selectedNofication?.selectedNumeroNotificacao}
+                                notificationLocation={selectedNofication.selectedNotificationLocation}
+                                setSelectedNotificationDataSintomas={selectedNofication.setSelectedNotificationDataSintomas}
+                                relatedNotificationLocations={selectedNofication.relatedNotificationLocations}
+                            />
                         </div>
                         : selectedNofication?.selectedNotificationLocation ?
                             <div className={"seta__notification-pane__body"}>

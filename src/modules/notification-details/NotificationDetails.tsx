@@ -1,21 +1,97 @@
 import "./NotificationDetails.scss";
 import "../../styles/grid.scss";
-import { Badge } from "../core";
+import { Badge, type BadgeProps } from "../core";
 import { Calendar } from "lucide-react";
-import { parseNotificationIdade, getNotificationLabExams, getNotificationSymptoms } from "../../utils";
+import {
+    parseNotificationIdade,
+    getNotificationLabExams,
+    getNotificationSymptoms,
+    parseDate,
+    getNotificationType
+} from "../../utils";
 import { NotificationPredictionBadge, NotificationStatusBadge } from "../index";
 import type { Notification, NotificationLocation } from "../../types";
 import { useGetNotificationByNumeroNotificacao } from "../../hooks";
+import { type Dispatch, type SetStateAction, useEffect } from "react";
 
 type NotificationDetailsProps = {
     numeroNotificacao: Notification["numeroNotificacao"],
     notificationLocation: NotificationLocation,
+    setSelectedNotificationDataSintomas: Dispatch<SetStateAction<Notification["dataDiagnosticoSintomaParsed"]>>,
+    relatedNotificationLocations?: Array<NotificationLocation>,
 };
 
 function NotificationDetails(props: NotificationDetailsProps) {
 
     const { data: notification, status } = useGetNotificationByNumeroNotificacao(props.numeroNotificacao);
     const { notificationLocation } = props;
+
+    const getConfirmedRelatedNotifications = (relatedNotificationLocations: Array<NotificationLocation>) => {
+
+        let labConfirmedCount = 0;
+        let clinicalConfirmedCount = 0;
+        relatedNotificationLocations.forEach(notificationLocation => {
+            notificationLocation.notifications.forEach(notification => {
+                const type = getNotificationType(notification);
+                type === "labConfirmed" ? labConfirmedCount++ : type === "clinicalConfirmed" ? clinicalConfirmedCount++ : null;
+            });
+        });
+
+        return {
+            labConfirmedCount,
+            clinicalConfirmedCount
+        };
+    };
+
+    const getRelatedNotificationsBadge = (numberOfRelatedNotifications: {
+        labConfirmedCount: number,
+        clinicalConfirmedCount: number,
+    }) => {
+
+        const { labConfirmedCount, clinicalConfirmedCount } = numberOfRelatedNotifications;
+
+        const labConfirmedColor: BadgeProps["color"] = labConfirmedCount === 0 ? "blue" : "red";
+        const labConfirmedLabel = labConfirmedCount === 1 ? "1 notificação (confirmado lab.)" : `${labConfirmedCount} notificações (confirmado lab.)`;
+
+        const clinicalConfirmedColor: BadgeProps["color"] = clinicalConfirmedCount === 0 ? "blue" : "red";
+        const clinicalConfirmedLabel = clinicalConfirmedCount === 1 ? "1 notificação (confirmado clínico-epidem.)" : `${clinicalConfirmedCount} notificações (confirmado clínico-epidem.)`;
+
+        const labConfirmedBadge = labConfirmedCount > 0 &&
+            <Badge kind={"heavy"} color={labConfirmedColor}>
+                {labConfirmedLabel}
+            </Badge>
+
+        const clinicalConfirmedBadge = clinicalConfirmedCount > 0 &&
+            <Badge kind={"heavy"} color={clinicalConfirmedColor}>
+                {clinicalConfirmedLabel}
+            </Badge>
+
+        return (
+            <div className={"seta__row"}>
+                <div className={"seta__notification-details__field seta__col-1"}>
+                    <small className={"seta__notification-details__label"}>
+                        Notificações confirmadas nas proximidades
+                    </small>
+                    <div className={"seta__notification-details__list"}>
+                        {
+                            labConfirmedCount == 0 && clinicalConfirmedCount == 0 ?
+                                <Badge kind={"heavy"} color={"blue"}>Sem notificações</Badge>
+                            : <>
+                                {labConfirmedBadge}
+                                {clinicalConfirmedBadge}
+                            </>
+                        }
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    useEffect(() => {
+        if (!notification) return;
+
+        props.setSelectedNotificationDataSintomas(parseDate(notification.dataDiagnosticoSintoma));
+    }, [notification]);
 
     return (
         <div className={"seta__notification-details"}>
@@ -98,7 +174,7 @@ function NotificationDetails(props: NotificationDetailsProps) {
 
                         <div className={"seta__notification-details__content__section"}>
                             <span className={"seta__notification-details__content__section__title"}>
-                                Diagnóstico<hr></hr>
+                                Investigação<hr></hr>
                             </span>
                             <div className={"seta__row"}>
                                 <div className={"seta__notification-details__field seta__col-1"}>
@@ -168,6 +244,9 @@ function NotificationDetails(props: NotificationDetailsProps) {
                                     <NotificationPredictionBadge notification={notification}/>
                                 </div>
                             </div>
+                            {props.relatedNotificationLocations &&
+                                getRelatedNotificationsBadge(getConfirmedRelatedNotifications(props.relatedNotificationLocations))
+                            }
                         </div>
                     </div>
                 </>
