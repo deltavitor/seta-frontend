@@ -8,6 +8,7 @@ type ButtonProps = {
     kind: "primary" | "secondary" | "tertiary";
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     type?: "button" | "submit" | "reset";
+    title?: string;
     iconOnly?: boolean;
 };
 
@@ -23,7 +24,7 @@ function Button(props: ButtonProps) {
     });
 
     return (
-        <button type={props.type} className={classes} onClick={props.onClick}>
+        <button type={props.type} className={classes} onClick={props.onClick} title={props.title}>
             {props.children}
         </button>
     );
