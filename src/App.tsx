@@ -42,13 +42,12 @@ function App() {
     };
 
     useEffect(() => {
-        if (!notificationLocationData) return;
-
         // When we first render the new notificationLocationData, we'll apply
         // some changes to results so we can do some stuff internally
-        const updatedNotificationLocationData = notificationLocationData.map(notificationLocation => {
+        const updatedNotificationLocationData = notificationLocationData?.map(notificationLocation => {
             notificationLocation.notifications.map(notification => {
                 notification.dataNotificacaoParsed = parseDate(notification.dataNotificacao);
+                notification.dataDiagnosticoSintomaParsed = parseDate(notification.dataDiagnosticoSintoma);
                 return notification;
             });
             return notificationLocation;

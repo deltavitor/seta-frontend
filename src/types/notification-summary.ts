@@ -4,9 +4,11 @@ type NotificationSummary = Pick<
     Notification,
     "numeroNotificacao" |
     "dataNotificacao" |
+    "dataDiagnosticoSintoma" |
     "classificacaoFinal" |
     "criterioConfirmacao" |
-    "dataNotificacaoParsed"
+    "dataNotificacaoParsed" |
+    "dataDiagnosticoSintomaParsed"
 >;
 
 export default NotificationSummary;

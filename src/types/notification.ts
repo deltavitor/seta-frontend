@@ -151,6 +151,8 @@ interface Notification {
 
     // Custom SETA fields that are used in the front-end
     dataNotificacaoParsed?: Date;
+
+    dataDiagnosticoSintomaParsed?: Date;
 }
 
 export default Notification;
