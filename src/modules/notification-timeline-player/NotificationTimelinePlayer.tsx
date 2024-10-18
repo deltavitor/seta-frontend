@@ -2,7 +2,7 @@ import "./NotificationTimelinePlayer.scss";
 import classNames from "classnames";
 import React, { useContext } from "react";
 import { Button } from "../core";
-import {  Pause, Play, Square } from "lucide-react";
+import { Pause, Play, SkipBack, SkipForward, Square } from "lucide-react";
 import { NotificationFilterContext } from "../../contexts";
 import { useInterval } from "../../hooks";
 
@@ -50,18 +50,16 @@ function NotificationTimelinePlayer(props: NotificationTimelinePlayerProps) {
         notificationFilters?.setTimelineIsPlaying(false);
     };
 
-    useInterval(() => {
-        if (!notificationFilters) return;
-
-        const startDate = notificationFilters.notificationTimeFilter.startDate ?
+    const moveTimeline = (days: number) => {
+        const startDate = notificationFilters?.notificationTimeFilter.startDate ?
             notificationFilters.notificationTimeFilter.startDate : props.earliestNotificationDate;
-        const finalEndDate = notificationFilters.notificationTimeFilter.originalEndDate ?
+        const finalEndDate = notificationFilters?.notificationTimeFilter.originalEndDate ?
             notificationFilters.notificationTimeFilter.originalEndDate : props.latestNotificationDate;
 
-        notificationFilters.setNotificationTimeFilter(prevFilter => {
+        notificationFilters?.setNotificationTimeFilter(prevFilter => {
             if (!prevFilter.endDate) return prevFilter;
             const endDate = new Date(prevFilter.endDate);
-            endDate.setDate(endDate.getDate() + 1);
+            endDate.setDate(endDate.getDate() + days);
             if (endDate >= finalEndDate)
                 notificationFilters.setTimelineIsPlaying(false);
 
@@ -71,7 +69,29 @@ function NotificationTimelinePlayer(props: NotificationTimelinePlayerProps) {
                 endDate: endDate,
             };
         });
+    };
+
+    const moveTimelineBackward = () => {
+        if (!notificationFilters) return;
+        const startDate = notificationFilters?.notificationTimeFilter.startDate ?
+            notificationFilters.notificationTimeFilter.startDate : props.earliestNotificationDate;
+        if (!notificationFilters.notificationTimeFilter.endDate || notificationFilters.notificationTimeFilter.endDate > startDate)
+            moveTimeline(-1);
+    };
+
+    const moveTimelineForward = () => {
+        if (!notificationFilters) return;
+        const finalDate = notificationFilters.notificationTimeFilter.originalEndDate ?
+            notificationFilters.notificationTimeFilter.originalEndDate : props.latestNotificationDate;
+        if (!notificationFilters.notificationTimeFilter.endDate || notificationFilters.notificationTimeFilter.endDate < finalDate)
+            moveTimeline(1);
+    };
+
+    useInterval(() => {
+        if (!notificationFilters) return;
+        moveTimeline(1);
     }, notificationFilters?.timelineIsPlaying ? notificationFilters.timelineDelay : null);
+
 
     const updateTimelineDelay = () => {
         notificationFilters?.setTimelineDelay(prevState => {
@@ -110,6 +130,13 @@ function NotificationTimelinePlayer(props: NotificationTimelinePlayerProps) {
                 </Button>
                 <Button kind={"tertiary"} onClick={updateTimelineDelay} title={"Velocidade de reprodução"}>
                     {timelineSpeed}X
+                </Button>
+                <hr className={"seta__vertical-divider"} style={{margin: "0 0.25rem"}}></hr>
+                <Button kind={"tertiary"} disabled={!notificationFilters?.notificationTimeFilter.startDate || !notificationFilters?.notificationTimeFilter.endDate} onClick={moveTimelineBackward} iconOnly={true} title={"Ir para o dia anterior"}>
+                    <SkipBack size={18} />
+                </Button>
+                <Button kind={"tertiary"} disabled={!notificationFilters?.notificationTimeFilter.startDate || !notificationFilters?.notificationTimeFilter.endDate} onClick={moveTimelineForward} iconOnly={true} title={"Ir para o próximo dia"}>
+                    <SkipForward size={18} />
                 </Button>
             </div>
         </div>
