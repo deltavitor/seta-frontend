@@ -6,6 +6,7 @@ type ButtonProps = {
     children: React.ReactNode;
     size?: "small";
     kind: "primary" | "secondary" | "tertiary";
+    disabled?: boolean;
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     type?: "button" | "submit" | "reset";
     title?: string;
@@ -24,7 +25,7 @@ function Button(props: ButtonProps) {
     });
 
     return (
-        <button type={props.type} className={classes} onClick={props.onClick} title={props.title}>
+        <button type={props.type} className={classes} onClick={props.onClick} title={props.title} disabled={props.disabled}>
             {props.children}
         </button>
     );

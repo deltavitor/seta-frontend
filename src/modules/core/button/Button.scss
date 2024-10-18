@@ -13,6 +13,11 @@
     font-size: 0.875rem;
     padding: 0.25rem 0.5rem;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+  }
 }
 
 // Targets any icons
@@ -29,11 +34,11 @@
   color: colors.$white;
   border: 1px solid colors.$teal-500 ;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: colors.$teal-600;
   }
 
-  &:active {
+  &:active:not(:disabled) {
     background-color: colors.$teal-700;
   }
 }
@@ -43,11 +48,11 @@
   color: colors.$teal-500;
   border: 1px solid colors.$teal-500;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: colors.$teal-100;
   }
 
-  &:active {
+  &:active:not(:disabled) {
     background-color: colors.$teal-200;
   }
 }
@@ -57,11 +62,11 @@
   color: colors.$teal-500;
   border-color: transparent;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: colors.$teal-100;
   }
 
-  &:active {
+  &:active:not(:disabled) {
     background-color: colors.$teal-200;
   }
 }
