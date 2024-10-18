@@ -13,16 +13,22 @@ function NotificationPane() {
     const previousNumeroNotificacaoRef = useRef<Notification["numeroNotificacao"]>("0");
     const [isExpanded, setIsExpanded] = React.useState(false);
 
-    const classes = classNames({
-        "seta__notification-pane": true,
-        "seta__notification-pane--expanded": isExpanded,
-    });
+    const deselectNotificationLocation = () => {
+        selectedNofication?.setSelectedNotificationLocation(undefined);
+        selectedNofication?.setSelectedNumeroNotificacao("0");
+        selectedNofication?.setRelatedNotificationLocations(undefined);
+    };
 
     useEffect(() => {
         setIsExpanded(selectedNofication?.selectedNumeroNotificacao !== "0");
         if (selectedNofication)
             previousNumeroNotificacaoRef.current = selectedNofication.selectedNumeroNotificacao;
     }, [selectedNofication?.selectedNumeroNotificacao]);
+
+    const classes = classNames({
+        "seta__notification-pane": true,
+        "seta__notification-pane--expanded": isExpanded,
+    });
 
     return (
         <div className={classes}>
@@ -45,7 +51,7 @@ function NotificationPane() {
                         </div>
                         : selectedNofication?.selectedNotificationLocation ?
                             <div className={"seta__notification-pane__body"}>
-                                <button className={"seta__notification-pane__back-button"} onClick={() => { selectedNofication?.setSelectedNotificationLocation(undefined); selectedNofication?.setSelectedNumeroNotificacao("0") }}>
+                                <button className={"seta__notification-pane__back-button"} onClick={deselectNotificationLocation}>
                                     <ArrowLeft size={18} style={{marginRight: "0.5rem"}}/>Voltar
                                 </button>
                                 <NotificationSummaryList
