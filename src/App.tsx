@@ -1,6 +1,6 @@
 import "@fontsource-variable/inter";
 import "./App.scss";
-import { Map, MapControlPanel, MapFooter, StartupCard } from "./modules";
+import { Map, MapCalendar, MapControlPanel, MapFooter, StartupCard } from "./modules";
 import { useFindNotificationLocations } from "./hooks";
 import React, { useEffect, useState } from "react";
 import { parseDate } from "./utils";
@@ -79,6 +79,7 @@ function App() {
                     <SelectedNotificationContextProvider>
                         <NotificationPane />
                         <NotificationFilterContextProvider>
+                            <MapCalendar />
                             <Map
                                 notificationLocations={validNotificationLocations || notificationLocations}
                                 earliestNotificationDate={earliestDate}

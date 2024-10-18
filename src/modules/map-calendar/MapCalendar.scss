@@ -1,0 +1,23 @@
+@use "../../styles/colors";
+
+.seta__map-calendar {
+  position: absolute;
+  left: 8px;
+  top: 24px;
+  z-index: 1000;
+  background-color: colors.$white;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border: 0.8px solid colors.$transparent-dark-gray;
+}
+
+.seta__map-calendar__label {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: colors.$gray-800;
+}
+
+.seta__map-calendar__date {
+  font-size: 1.5rem;
+}
