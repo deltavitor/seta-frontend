@@ -7,8 +7,11 @@
   background-color: colors.$white;
   padding: 0.5rem 0 0.5rem 0;
   z-index: 1000;
-  width: 14rem;
+  width: 23rem;
   box-shadow: 0 2px 2px colors.$transparent-dark-gray, 0 4px 4px colors.$transparent-dark-gray, 0 8px 8px colors.$transparent-dark-gray;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .seta__map-layer-filter--hidden {

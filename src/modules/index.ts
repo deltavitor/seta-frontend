@@ -14,7 +14,6 @@ import NotificationStatusBadge from "./notification-status-badge/NotificationSta
 import NotificationSummaryList from "./notification-summay-list/NotificationSummaryList";
 import NotificationTimeFilter from "./notification-time-filter/NotificationTimeFilter";
 import NotificationTimelinePlayer from "./notification-timeline-player/NotificationTimelinePlayer";
-import NotificationTypeFilter from "./notification-type-filter/NotificationTypeFilter";
 import StartupCard from "./startup-card/StartupCard";
 
 export {
@@ -34,6 +33,5 @@ export {
     NotificationSummaryList,
     NotificationTimeFilter,
     NotificationTimelinePlayer,
-    NotificationTypeFilter,
     StartupCard,
 };

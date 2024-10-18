@@ -1,6 +1,6 @@
-import { MapLayerFilter, NotificationTimeFilter, NotificationTimelinePlayer, NotificationTypeFilter } from "../index";
+import { MapLayerFilter, NotificationTimeFilter, NotificationTimelinePlayer } from "../index";
 import { Button } from "../core";
-import { Calendar, Clock, Filter, Layers } from "lucide-react";
+import { Calendar, Clock, Layers } from "lucide-react";
 import React, { useState } from "react";
 
 type MapControlPanelProps = {
@@ -12,7 +12,6 @@ function MapControlPanel(props: MapControlPanelProps) {
 
     const [controlPanelFiltersVisibility, setControlPanelFiltersVisibility] = useState({
         mapLayerFilters: false,
-        notificationTypeFilters: false,
         notificationTimeFilters: false,
         notificationTimelinePlayer: false,
     });
@@ -33,19 +32,12 @@ function MapControlPanel(props: MapControlPanelProps) {
             left: 8,
             bottom: 32,
             display: "inline-flex",
-            gap: "2rem",
+            gap: "1rem",
         }}>
             <div style={{position: "relative", display: "inline-block"}}>
                 <MapLayerFilter hidden={!controlPanelFiltersVisibility.mapLayerFilters}/>
                 <Button size={"small"} kind={"primary"} onClick={() => toggleControlPanelFilter("mapLayerFilters")}>
                     Camadas <Layers size={16}/>
-                </Button>
-            </div>
-            <div style={{position: "relative", display: "inline-block"}}>
-                <NotificationTypeFilter hidden={!controlPanelFiltersVisibility.notificationTypeFilters}/>
-                <Button size={"small"} kind={"primary"}
-                        onClick={() => toggleControlPanelFilter("notificationTypeFilters")}>
-                    Filtros <Filter size={16}/>
                 </Button>
             </div>
             <div style={{position: "relative", display: "inline-block"}}>
