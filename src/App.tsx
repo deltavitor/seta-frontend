@@ -53,35 +53,29 @@ function App() {
             return notificationLocation;
         });
         setNotificationLocations(updatedNotificationLocationData);
-    }, [notificationLocationData]);
 
-    useEffect(() => {
-        if (!notificationLocations) return;
+        const validNotificationLocations = updatedNotificationLocationData?.filter(isValidNotificationLocation);
+        setValidNotificationLocations(validNotificationLocations);
 
-        setValidNotificationLocations(notificationLocations.filter(isValidNotificationLocation));
-    }, [notificationLocations]);
-
-    useEffect(() => {
         if (!validNotificationLocations) return;
-
         const { earliest, latest } = getEarliestAndLatestNotifications(validNotificationLocations);
         setEarliestDate(earliest);
         setLatestDate(latest);
-    }, [validNotificationLocations]);
+    }, [notificationLocationData]);
 
     // TODO improve this
     return (
         <div>
             { isLoading && <h1>Loading...</h1> }
-            { !isLoading && notificationLocations?.length == 0 && <StartupCard /> }
-            { notificationLocations && notificationLocations.length > 0 && !isLoading &&
+            { !isLoading && notificationLocations?.length == 0 && <StartupCard/> }
+            { validNotificationLocations && validNotificationLocations.length > 0 && !isLoading &&
                 <div>
                     <SelectedNotificationContextProvider>
                         <NotificationPane />
                         <NotificationFilterContextProvider>
                             <MapCalendar />
                             <Map
-                                notificationLocations={validNotificationLocations || notificationLocations}
+                                notificationLocations={validNotificationLocations}
                                 earliestNotificationDate={earliestDate}
                                 latestNotificationDate={latestDate}
                             />
