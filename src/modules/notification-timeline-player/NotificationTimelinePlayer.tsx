@@ -19,21 +19,33 @@ function NotificationTimelinePlayer(props: NotificationTimelinePlayerProps) {
     const playTimeline = () => {
         if (!notificationFilters) return;
 
-        const newIsRunningState = !notificationFilters.timelineIsPlaying;
-        notificationFilters.setTimelineIsPlaying(newIsRunningState);
+        const timelineIsPlaying = !notificationFilters.timelineIsPlaying;
+        notificationFilters.setTimelineIsPlaying(timelineIsPlaying);
+        if (!timelineIsPlaying) return;
 
-        if (newIsRunningState)
-            if (!notificationFilters.notificationTimeFilter.endDate || notificationFilters.notificationTimeFilter.endDate?.getTime() === props.latestNotificationDate.getTime())
-                notificationFilters.setNotificationTimeFilter({
-                    startDate: props.earliestNotificationDate,
-                    endDate: props.earliestNotificationDate,
-                });
+        const startDate = notificationFilters.notificationTimeFilter.originalStartDate ?? props.earliestNotificationDate;
+        const endDate = notificationFilters.notificationTimeFilter.originalEndDate ?? props.latestNotificationDate;
+
+        const hasFinishedPlaying = (endDate && notificationFilters.notificationTimeFilter.endDate &&
+            notificationFilters.notificationTimeFilter.endDate >= endDate) || !endDate || !notificationFilters.notificationTimeFilter.endDate;
+
+        if (hasFinishedPlaying)
+            notificationFilters.setNotificationTimeFilter(prevState => {
+                return {
+                    ...prevState,
+                    startDate: startDate,
+                    endDate: startDate,
+                }
+            });
     };
 
     const stopTimeline = () => {
-        notificationFilters?.setNotificationTimeFilter({
-            startDate: undefined,
-            endDate: undefined,
+        notificationFilters?.setNotificationTimeFilter(prevState => {
+            return {
+                ...prevState,
+                startDate: prevState.originalStartDate,
+                endDate: prevState.originalEndDate,
+            }
         });
         notificationFilters?.setTimelineIsPlaying(false);
     };
@@ -41,16 +53,20 @@ function NotificationTimelinePlayer(props: NotificationTimelinePlayerProps) {
     useInterval(() => {
         if (!notificationFilters) return;
 
-        const startDate = props.earliestNotificationDate;
+        const startDate = notificationFilters.notificationTimeFilter.startDate ?
+            notificationFilters.notificationTimeFilter.startDate : props.earliestNotificationDate;
+        const finalEndDate = notificationFilters.notificationTimeFilter.originalEndDate ?
+            notificationFilters.notificationTimeFilter.originalEndDate : props.latestNotificationDate;
 
         notificationFilters.setNotificationTimeFilter(prevFilter => {
             if (!prevFilter.endDate) return prevFilter;
             const endDate = new Date(prevFilter.endDate);
             endDate.setDate(endDate.getDate() + 1);
-            if (endDate >= props.latestNotificationDate)
+            if (endDate >= finalEndDate)
                 notificationFilters.setTimelineIsPlaying(false);
 
             return {
+                ...prevFilter,
                 startDate: startDate,
                 endDate: endDate,
             };

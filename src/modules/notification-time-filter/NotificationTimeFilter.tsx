@@ -31,6 +31,8 @@ function NotificationTimeFilter(props: NotificationTimeFilterProps) {
         const newFilterState = {
             startDate: startDate,
             endDate: endDate,
+            originalStartDate: startDate,
+            originalEndDate: endDate,
         };
         notificationFilters.setNotificationTimeFilter(newFilterState);
         setIsInvalid(false);
@@ -44,6 +46,8 @@ function NotificationTimeFilter(props: NotificationTimeFilterProps) {
         notificationFilters.setNotificationTimeFilter({
             startDate: undefined,
             endDate: undefined,
+            originalStartDate: undefined,
+            originalEndDate: undefined,
         });
         setIsInvalid(false);
     };

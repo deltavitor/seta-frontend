@@ -39,6 +39,8 @@ function NotificationFilterContextProvider(props: FilterContextProps) {
     const [notificationTimeFilter, setNotificationTimeFilter] = useState<NotificationTimeFilterType>({
         startDate: undefined,
         endDate: undefined,
+        originalStartDate: undefined,
+        originalEndDate: undefined,
     });
     const [timelineIsPlaying, setTimelineIsPlaying] = useState(false);
     const [timelineDelay, setTimelineDelay] = useState(200);
