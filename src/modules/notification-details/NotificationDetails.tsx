@@ -1,7 +1,7 @@
 import "./NotificationDetails.scss";
 import "../../styles/grid.scss";
-import { Badge, type BadgeProps } from "../core";
-import { Calendar } from "lucide-react";
+import { Badge, type BadgeProps, Tooltip } from "../core";
+import { Calendar, HelpCircle } from "lucide-react";
 import {
     parseNotificationIdade,
     getNotificationLabExams,
@@ -12,7 +12,7 @@ import {
 import { NotificationPredictionBadge, NotificationStatusBadge } from "../index";
 import type { Notification, NotificationLocation } from "../../types";
 import { useGetNotificationByNumeroNotificacao } from "../../hooks";
-import { type Dispatch, type SetStateAction, useEffect } from "react";
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 
 type NotificationDetailsProps = {
     numeroNotificacao: Notification["numeroNotificacao"],
@@ -25,6 +25,8 @@ function NotificationDetails(props: NotificationDetailsProps) {
 
     const { data: notification, status } = useGetNotificationByNumeroNotificacao(props.numeroNotificacao);
     const { notificationLocation } = props;
+    const [notificationPredictionTooltipIsVisible, setNotificationPredictionTooltipIsVisible] = useState(false);
+    const [relatedNotificationsLabelRefIsVisible, setRelatedNotificationsLabelRefIsVisible] = useState(false);
 
     const getConfirmedRelatedNotifications = (relatedNotificationLocations: Array<NotificationLocation>) => {
 
@@ -69,9 +71,20 @@ function NotificationDetails(props: NotificationDetailsProps) {
         return (
             <div className={"seta__row"}>
                 <div className={"seta__notification-details__field seta__col-1"}>
-                    <small className={"seta__notification-details__label"}>
-                        Notificações confirmadas nas proximidades
-                    </small>
+                    <div className={"seta__notification-details__label seta__notification-details__tooltip-trigger"}>
+                        <span
+                            style={{display: "inline-flex", alignItems: "center"}}
+                            onMouseEnter={() => setRelatedNotificationsLabelRefIsVisible(true)}
+                            onMouseLeave={() => setRelatedNotificationsLabelRefIsVisible(false)}
+                        >
+                            Notificações confirmadas nas proximidades
+                            <HelpCircle style={{marginLeft: "0.25rem"}} size={16}/>
+                        </span>
+                        <Tooltip hidden={!relatedNotificationsLabelRefIsVisible}>
+                            Esse cálculo mostra notificações relacionadas a este caso, com início de sintomas até 7 dias antes ou depois,
+                            e que estão em um raio de 300m da residência desta notificação
+                        </Tooltip>
+                    </div>
                     <div className={"seta__notification-details__list"}>
                         {
                             labConfirmedCount == 0 && clinicalConfirmedCount == 0 ?
@@ -238,9 +251,18 @@ function NotificationDetails(props: NotificationDetailsProps) {
                             </span>
                             <div className={"seta__row"}>
                                 <div className={"seta__notification-details__field seta__col-1"}>
-                                    <small className={"seta__notification-details__label"}>
-                                        Probabilidade de ser dengue pelos sintomas
-                                    </small>
+                                    <div className={"seta__notification-details__label seta__notification-details__tooltip-trigger"}>
+                                        <span
+                                            onMouseEnter={() => setNotificationPredictionTooltipIsVisible(true)}
+                                            onMouseLeave={() => setNotificationPredictionTooltipIsVisible(false)}
+                                            style={{display: "inline-flex", alignItems: "center"}}>
+                                            Probabilidade de ser dengue pelos sintomas<HelpCircle style={{marginLeft: "0.25rem"}} size={16} />
+                                        </span>
+                                        <Tooltip hidden={!notificationPredictionTooltipIsVisible}>
+                                            Esse cálculo é feito por uma Inteligência Artificial
+                                            que analisa os sintomas e a idade do paciente para chegar à essa conclusão
+                                        </Tooltip>
+                                    </div>
                                     <NotificationPredictionBadge notification={notification}/>
                                 </div>
                             </div>
