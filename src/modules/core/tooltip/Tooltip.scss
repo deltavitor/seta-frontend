@@ -1,0 +1,29 @@
+@use "../../../styles/colors";
+
+.seta__tooltip {
+  position: absolute;
+  bottom: 125%;
+  left: 0;
+  z-index: 9999;
+  background-color: colors.$teal-500;
+  color: colors.$white;
+  padding: 1rem;
+  font-size: 0.875rem;
+  width: 80%;
+  word-wrap: break-word;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: colors.$teal-500 transparent transparent transparent;
+  }
+}
+
+.seta__tooltip--hidden {
+  display: none;
+}
