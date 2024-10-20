@@ -16,7 +16,7 @@ import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 
 type NotificationDetailsProps = {
     numeroNotificacao: Notification["numeroNotificacao"],
-    notificationLocation: NotificationLocation,
+    notificationLocation?: NotificationLocation,
     setSelectedNotificationDataSintomas: Dispatch<SetStateAction<Notification["dataDiagnosticoSintomaParsed"]>>,
     relatedNotificationLocations?: Array<NotificationLocation>,
 };
@@ -180,7 +180,7 @@ function NotificationDetails(props: NotificationDetailsProps) {
                                     <small className={"seta__notification-details__label"}>
                                         Endereço computado
                                     </small>
-                                    <span>{notificationLocation.formattedAddress || "-"}</span>
+                                    <span>{notificationLocation?.formattedAddress || "Notificação não mapeada"}</span>
                                 </div>
                             </div>
                         </div>
@@ -266,8 +266,9 @@ function NotificationDetails(props: NotificationDetailsProps) {
                                     <NotificationPredictionBadge notification={notification}/>
                                 </div>
                             </div>
-                            {props.relatedNotificationLocations &&
+                            {props.notificationLocation ? props.relatedNotificationLocations &&
                                 getRelatedNotificationsBadge(getConfirmedRelatedNotifications(props.relatedNotificationLocations))
+                                : null
                             }
                         </div>
                     </div>

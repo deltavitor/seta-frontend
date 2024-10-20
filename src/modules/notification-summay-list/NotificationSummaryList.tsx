@@ -1,6 +1,6 @@
 import "./NotificationSummaryList.scss";
 import "../../styles/grid.scss";
-import type { Notification, NotificationLocation } from "../../types";
+import type { Notification, NotificationLocation, NotificationSummary } from "../../types";
 import { NotificationStatusBadge } from "../index";
 import { ArrowRight, Calendar } from "lucide-react";
 import { Button } from "../core";
@@ -8,7 +8,8 @@ import React from "react";
 
 type NotificationSummaryListProps = {
     setNumeroNotificacao: React.Dispatch<React.SetStateAction<Notification["numeroNotificacao"]>>;
-    notificationLocation: NotificationLocation;
+    notificationLocation?: NotificationLocation;
+    notifications: Array<Notification | NotificationSummary>;
 };
 
 function NotificationSummaryList(props: NotificationSummaryListProps) {
@@ -20,13 +21,15 @@ function NotificationSummaryList(props: NotificationSummaryListProps) {
                     Notificações neste local
                 </span>
             </div>
-            <div className={"seta__notification-summary-list__field seta__col-1"}>
-                <small className={"seta__notification-details__label"}>
-                    Endereço computado
-                </small>
-                <span>{props.notificationLocation.formattedAddress || "-"}</span>
-            </div>
-            {props.notificationLocation.notifications.map((notificationSummary) => {
+            {props.notificationLocation &&
+                <div className={"seta__notification-summary-list__field seta__col-1"}>
+                    <small className={"seta__notification-details__label"}>
+                        Endereço computado
+                    </small>
+                    <span>{props.notificationLocation.formattedAddress || "-"}</span>
+                </div>
+            }
+            {props.notifications.map((notificationSummary) => {
                 return (
                     <div className={"seta__notification-summary-list__card"} key={notificationSummary.numeroNotificacao}>
                         <div className={"seta__notification-summary-list__card__header"}>

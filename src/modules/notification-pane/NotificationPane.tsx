@@ -1,17 +1,33 @@
 import "./NotificationPane.scss"
 import "../../styles/grid.scss"
-import type { Notification } from "../../types";
+import type { Notification, NotificationSummary } from "../../types";
 import { NotificationDetails, NotificationSummaryList } from "../index";
 import React, { useContext, useEffect, useRef } from "react";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import classNames from "classnames";
 import { SelectedNotificationContext } from "../../contexts";
 
-function NotificationPane() {
+type NotificationPaneProps = {
+    unmappedNotifications?: Array<NotificationSummary>,
+};
+
+function NotificationPane(props: NotificationPaneProps) {
 
     const selectedNofication = useContext(SelectedNotificationContext);
     const previousNumeroNotificacaoRef = useRef<Notification["numeroNotificacao"]>("0");
     const [isExpanded, setIsExpanded] = React.useState(false);
+
+    const deselectNotification = () => {
+        // If no notificationLocation was selected, the user was viewing an unmapped notification - so we can go back
+        // to the unmapped view (-2)
+        if (!selectedNofication?.selectedNotificationLocation) {
+            selectedNofication?.setSelectedNumeroNotificacao("-2");
+            selectedNofication?.setRelatedNotificationLocations(undefined);
+            selectedNofication?.setSelectedNotificationLocation(undefined);
+        }
+        else
+            selectedNofication?.setSelectedNumeroNotificacao("-1");
+    };
 
     const deselectNotificationLocation = () => {
         selectedNofication?.setSelectedNotificationLocation(undefined);
@@ -37,9 +53,19 @@ function NotificationPane() {
             </button>
             {
                 isExpanded ?
-                    selectedNofication?.selectedNotificationLocation && selectedNofication?.selectedNumeroNotificacao !== "-1" && selectedNofication?.selectedNumeroNotificacao !== "0" ?
+                    props.unmappedNotifications && !selectedNofication?.selectedNotificationLocation && selectedNofication?.selectedNumeroNotificacao === "-2" ?
                         <div className={"seta__notification-pane__body"}>
-                            <button className={"seta__notification-pane__back-button"} onClick={() => selectedNofication?.setSelectedNumeroNotificacao("-1")}>
+                                <button className={"seta__notification-pane__back-button"} onClick={deselectNotificationLocation}>
+                                    <ArrowLeft size={18} style={{marginRight: "0.5rem"}}/>Voltar
+                                </button>
+                                <NotificationSummaryList
+                                    setNumeroNotificacao={selectedNofication.setSelectedNumeroNotificacao}
+                                    notifications={props.unmappedNotifications}
+                                />
+                            </div>
+                    : selectedNofication?.selectedNumeroNotificacao && selectedNofication?.selectedNumeroNotificacao !== "-1" && selectedNofication?.selectedNumeroNotificacao !== "0" ?
+                        <div className={"seta__notification-pane__body"}>
+                            <button className={"seta__notification-pane__back-button"} onClick={deselectNotification}>
                                 <ArrowLeft size={18} style={{marginRight: "0.5rem"}}/>Voltar
                             </button>
                             <NotificationDetails
@@ -56,7 +82,9 @@ function NotificationPane() {
                                 </button>
                                 <NotificationSummaryList
                                     setNumeroNotificacao={selectedNofication.setSelectedNumeroNotificacao}
-                                    notificationLocation={selectedNofication.selectedNotificationLocation}/>
+                                    notificationLocation={selectedNofication.selectedNotificationLocation}
+                                    notifications={selectedNofication.selectedNotificationLocation.notifications}
+                                />
                             </div>
                             :
                             <div>

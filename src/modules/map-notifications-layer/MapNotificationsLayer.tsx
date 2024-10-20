@@ -63,7 +63,7 @@ function MapNotificationsLayer(props: MapNotificationsLayer) {
                         index,
                         notificationLocation,
                         selectedNofication?.selectedNotificationLocation,
-                        selectedNofication?.selectedNumeroNotificacao !== "0" && selectedNofication?.selectedNumeroNotificacao !== "-1",
+                        !["0", "-1", "-2"].includes(selectedNofication?.selectedNumeroNotificacao ?? "") && selectedNofication?.selectedNotificationLocation !== undefined,
                         handleMarkerClick
                     );
                 })}

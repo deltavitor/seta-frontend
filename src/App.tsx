@@ -1,19 +1,21 @@
 import "@fontsource-variable/inter";
 import "./App.scss";
-import { Map, MapCalendar, MapControlPanel, MapFooter, StartupCard } from "./modules";
-import { useFindNotificationLocations } from "./hooks";
+import { Map, MapCalendar, MapControlPanel, MapFooter, StartupCard, UnmappedNotificationsButton } from "./modules";
+import { useFindAllUnmappedNotifications, useFindNotificationLocations } from "./hooks";
 import React, { useEffect, useState } from "react";
 import { parseDate } from "./utils";
-import type { NotificationLocation } from "./types";
+import type { NotificationLocation, NotificationSummary } from "./types";
 import NotificationPane from "./modules/notification-pane/NotificationPane";
 import { NotificationFilterContextProvider, SelectedNotificationContextProvider } from "./contexts";
-
 function App() {
 
     const { data: notificationLocationData, isLoading } = useFindNotificationLocations();
+    const { data: unmappedNotificationsData } = useFindAllUnmappedNotifications();
 
     const [notificationLocations, setNotificationLocations] = useState<Array<NotificationLocation>>();
     const [validNotificationLocations, setValidNotificationLocations] = useState<Array<NotificationLocation>>();
+    const [invalidNotifications, setInvalidNotifications] = useState<Array<NotificationSummary>>();
+    const [unmappedNotifications, setUnmappedNotifications] = useState<Array<NotificationSummary>>();
     const [earliestDate, setEarliestDate] = useState(new Date());
     const [latestDate, setLatestDate] = useState(new Date(0));
 
@@ -54,14 +56,25 @@ function App() {
         });
         setNotificationLocations(updatedNotificationLocationData);
 
-        const validNotificationLocations = updatedNotificationLocationData?.filter(isValidNotificationLocation);
+        const validNotificationLocations: Array<NotificationLocation> = [];
+        const invalidNotifications: Array<NotificationSummary> = [];
+        updatedNotificationLocationData?.forEach((notificationLocation) =>
+            isValidNotificationLocation(notificationLocation) ? validNotificationLocations.push(notificationLocation) : invalidNotifications.push(...notificationLocation.notifications)
+        );
         setValidNotificationLocations(validNotificationLocations);
+        setInvalidNotifications(invalidNotifications);
 
         if (!validNotificationLocations) return;
         const { earliest, latest } = getEarliestAndLatestNotifications(validNotificationLocations);
         setEarliestDate(earliest);
         setLatestDate(latest);
     }, [notificationLocationData]);
+
+    useEffect(() => {
+        setUnmappedNotifications(unmappedNotificationsData);
+    }, [unmappedNotificationsData]);
+
+    const unmapedAndInvalidNotifications = unmappedNotifications?.concat(invalidNotifications ?? []);
 
     // TODO improve this
     return (
@@ -71,7 +84,10 @@ function App() {
             { validNotificationLocations && validNotificationLocations.length > 0 && !isLoading &&
                 <div>
                     <SelectedNotificationContextProvider>
-                        <NotificationPane />
+                        {unmapedAndInvalidNotifications &&
+                            <UnmappedNotificationsButton unmappedNotifications={unmapedAndInvalidNotifications} />
+                        }
+                        <NotificationPane unmappedNotifications={unmapedAndInvalidNotifications} />
                         <NotificationFilterContextProvider>
                             <MapCalendar />
                             <Map
