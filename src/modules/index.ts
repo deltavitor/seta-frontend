@@ -15,6 +15,7 @@ import NotificationSummaryList from "./notification-summay-list/NotificationSumm
 import NotificationTimeFilter from "./notification-time-filter/NotificationTimeFilter";
 import NotificationTimelinePlayer from "./notification-timeline-player/NotificationTimelinePlayer";
 import StartupCard from "./startup-card/StartupCard";
+import UnmappedNotificationsButton from "./unmapped-notifications-button/UnmappedNotificationsButton";
 
 export {
     Map,
@@ -34,4 +35,5 @@ export {
     NotificationTimeFilter,
     NotificationTimelinePlayer,
     StartupCard,
+    UnmappedNotificationsButton,
 };

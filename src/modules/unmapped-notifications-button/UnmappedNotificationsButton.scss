@@ -1,0 +1,22 @@
+@use "../../styles/colors";
+
+.seta__invalid-notifications-button {
+  position: absolute;
+  z-index: 1000;
+  right: 72px;
+  bottom: 32px;
+  border: none;
+  border-radius: 50%;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  background-color: colors.$red-100;
+
+  &:hover {
+    background-color: colors.$red-200;
+  }
+
+  &:active {
+    background-color: colors.$red-300;
+  }
+}
