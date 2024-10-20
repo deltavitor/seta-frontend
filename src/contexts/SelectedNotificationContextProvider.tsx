@@ -21,6 +21,9 @@ const SelectedNotificationContext = createContext<SelectedNotificationContext | 
 function SelectedNotificationContextProvider(props: SelectedNotificationContextProviderProps) {
 
     const [selectedNotificationLocation, setSelectedNotificationLocation] = useState<NotificationLocation>();
+    // 0 -> No notification selected
+    // -1 -> User is viewing the notification location pane where we can select a notification
+    // -2 -> User is viewing the unmapped notifications where we can select a notification
     const [selectedNumeroNotificacao, setSelectedNumeroNotificacao] = useState<Notification["numeroNotificacao"]>("0");
     const [selectedNotificationDataSintomas, setSelectedNotificationDataSintomas] = useState<Notification["dataDiagnosticoSintomaParsed"]>();
     const [relatedNotificationLocations, setRelatedNotificationLocations] = useState<Array<NotificationLocation> | undefined>();
