@@ -84,7 +84,7 @@ function App() {
             { validNotificationLocations && validNotificationLocations.length > 0 && !isLoading &&
                 <div>
                     <SelectedNotificationContextProvider>
-                        {unmapedAndInvalidNotifications &&
+                        {unmapedAndInvalidNotifications && unmapedAndInvalidNotifications.length > 0 &&
                             <UnmappedNotificationsButton unmappedNotifications={unmapedAndInvalidNotifications} />
                         }
                         <NotificationPane unmappedNotifications={unmapedAndInvalidNotifications} />
