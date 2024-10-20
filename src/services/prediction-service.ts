@@ -1,5 +1,5 @@
 import type { NotificationFeatures, Prediction } from "../types";
-import { setaGatewayApiClient } from "../configurations/apiClients";
+import { setaGatewayApiClient } from "../configurations/api-clients";
 
 const predictionService = {
 

@@ -1,4 +1,4 @@
-import { setaGatewayApiClient } from "../configurations/apiClients";
+import { setaGatewayApiClient } from "../configurations/api-clients";
 import type { NotificationLocation } from "../types";
 
 const notificationLocationService = {
