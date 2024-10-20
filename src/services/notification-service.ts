@@ -13,6 +13,12 @@ const notificationService = {
         return response.data;
     },
 
+    findAllUnmappedNotifications: async function(): Promise<Array<Notification>> {
+        const url = "/notifications?returnUnmappedNotificationsOnly";
+        const response = await setaGatewayApiClient.get<Array<Notification>>(url);
+        return response.data;
+    },
+
     getNotificationByNumeroNotificacao: async function(numeroNotificacao: Notification["numeroNotificacao"]): Promise<Notification> {
         const url = `/notifications/${numeroNotificacao}`;
         const response = await setaGatewayApiClient.get<Notification>(url);
