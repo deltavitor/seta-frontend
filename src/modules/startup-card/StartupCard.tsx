@@ -30,22 +30,33 @@ function StartupCard() {
     return (
         <div className={"seta__startup-card"}>
             <div className={"seta__startup-card__content"}>
-                <form encType={"multipart/form-data"} onSubmit={handleFormSubmit}>
-                    <h1>Bem-vindo ao SETA-Dengue</h1>
-                    <p>Faça o upload de um arquivo de notificações no formato DBF para começar</p>
-                    <div className={"seta__startup-card__file-input"}>
-                        <input
-                            ref={fileInputRef}
-                            type={"file"}
-                            aria-hidden={true}
-                            onChange={handleFileChange}
-                            style={{ display: "none" }}
-                        />
-                        <Button kind={"secondary"} onClick={handleBrowseFilesButtonClick} type={"button"}>Escolher arquivo</Button>
-                        <small>{file ? file.name : "Nenhum arquivo selecionado"}</small>
-                    </div>
-                    <Button kind={"primary"} type={"submit"}>Enviar</Button>
-                </form>
+                {
+                    addNotifications.status === "idle" ?
+                        <form encType={"multipart/form-data"} onSubmit={handleFormSubmit}>
+                            <h1>Bem-vindo ao SETA-Dengue</h1>
+                            <p>Faça o upload de um arquivo de notificações no formato DBF para começar</p>
+                            <div className={"seta__startup-card__file-input"}>
+                                <input
+                                    ref={fileInputRef}
+                                    type={"file"}
+                                    aria-hidden={true}
+                                    onChange={handleFileChange}
+                                    style={{display: "none"}}
+                                />
+                                <Button kind={"secondary"} onClick={handleBrowseFilesButtonClick} type={"button"}>Escolher
+                                    arquivo</Button>
+                                <small>{file ? file.name : "Nenhum arquivo selecionado"}</small>
+                            </div>
+                            <Button kind={"primary"} type={"submit"}>Enviar</Button>
+                        </form>
+                    : addNotifications.status === "pending" || addNotifications.status === "success" ?
+                        <div>
+                            Carregando notificações...
+                        </div>
+                        : <div>
+                            Ocorreu um erro. Por favor, contate costavitor@edu.unisinos.br
+                        </div>
+                }
             </div>
         </div>
     )
