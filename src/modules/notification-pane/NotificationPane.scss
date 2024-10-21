@@ -33,6 +33,15 @@
   }
 }
 
+.seta__notification-pane__placeholder {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  color: colors.$gray-800;
+}
+
 .seta__notification-pane__body {
   width: 100%;
   padding: 1rem;

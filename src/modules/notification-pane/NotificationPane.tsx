@@ -87,8 +87,8 @@ function NotificationPane(props: NotificationPaneProps) {
                                 />
                             </div>
                             :
-                            <div>
-                                Selecione uma notificação no mapa
+                            <div className={"seta__notification-pane__placeholder"}>
+                                Selecione uma notificação no mapa para ver seus detalhes
                             </div>
                     : null
             }
