@@ -23,6 +23,12 @@ const notificationService = {
         const url = `/notifications/${numeroNotificacao}`;
         const response = await setaGatewayApiClient.get<Notification>(url);
         return response.data;
+    },
+
+    deleteAllNotifications: async function(): Promise<void> {
+        const url = "/notifications";
+        const response = await setaGatewayApiClient.delete<void>(url);
+        return response.data;
     }
 };
 
