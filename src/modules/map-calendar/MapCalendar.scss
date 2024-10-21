@@ -2,8 +2,9 @@
 
 .seta__map-calendar {
   position: absolute;
-  left: 8px;
-  top: 24px;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
   z-index: 1000;
   background-color: colors.$white;
   padding: 1rem;
