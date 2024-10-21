@@ -14,6 +14,7 @@ import NotificationStatusBadge from "./notification-status-badge/NotificationSta
 import NotificationSummaryList from "./notification-summay-list/NotificationSummaryList";
 import NotificationTimeFilter from "./notification-time-filter/NotificationTimeFilter";
 import NotificationTimelinePlayer from "./notification-timeline-player/NotificationTimelinePlayer";
+import SideMenu from "./side-menu/SideMenu";
 import StartupCard from "./startup-card/StartupCard";
 import UnmappedNotificationsButton from "./unmapped-notifications-button/UnmappedNotificationsButton";
 
@@ -34,6 +35,7 @@ export {
     NotificationSummaryList,
     NotificationTimeFilter,
     NotificationTimelinePlayer,
+    SideMenu,
     StartupCard,
     UnmappedNotificationsButton,
 };

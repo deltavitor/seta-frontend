@@ -1,7 +1,18 @@
 import "@fontsource-variable/inter";
 import "./App.scss";
-import { Map, MapCalendar, MapControlPanel, MapFooter, StartupCard, UnmappedNotificationsButton } from "./modules";
-import { useFindAllUnmappedNotifications, useFindNotificationLocations } from "./hooks";
+import {
+    Map,
+    MapCalendar,
+    MapControlPanel,
+    MapFooter,
+    SideMenu,
+    StartupCard,
+    UnmappedNotificationsButton
+} from "./modules";
+import {
+    useFindAllUnmappedNotifications,
+    useFindNotificationLocations
+} from "./hooks";
 import React, { useEffect, useState } from "react";
 import { parseDate } from "./utils";
 import type { NotificationLocation, NotificationSummary } from "./types";
@@ -83,6 +94,7 @@ function App() {
             { !isLoading && notificationLocations?.length == 0 && <StartupCard/> }
             { validNotificationLocations && validNotificationLocations.length > 0 && !isLoading &&
                 <div>
+                    <SideMenu />
                     <SelectedNotificationContextProvider>
                         {unmapedAndInvalidNotifications && unmapedAndInvalidNotifications.length > 0 &&
                             <UnmappedNotificationsButton unmappedNotifications={unmapedAndInvalidNotifications} />
