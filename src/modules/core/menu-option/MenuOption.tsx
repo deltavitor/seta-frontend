@@ -6,6 +6,8 @@ type MenuOptionProps = {
     children: React.ReactNode;
     checked?: boolean;
     handleToggle?: (isChecked: boolean) => void;
+    buttonOnly?: boolean;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 function MenuOption(props: MenuOptionProps) {
@@ -19,9 +21,9 @@ function MenuOption(props: MenuOptionProps) {
     };
 
     return (
-        <button className={"seta__menu-option"} onClick={toggle}>
+        <button className={"seta__menu-option"} onClick={props.onClick ?? toggle}>
             {props.children}
-            <Check className={"seta__menu-option__check-icon"} size={20} {...(isChecked ? {visibility: "visible"} : {visibility: "hidden"})}/>
+            {!props.buttonOnly && <Check className={"seta__menu-option__check-icon"} size={20} {...(isChecked ? {visibility: "visible"} : {visibility: "hidden"})}/>}
         </button>
     );
 }
