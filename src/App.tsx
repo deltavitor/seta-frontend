@@ -56,8 +56,7 @@ function App() {
 
     useEffect(() => {
         if (!notificationLocationData) return;
-        console.log("The data: ");
-        console.log(notificationLocationData)
+
         // When we first render the new notificationLocationData, we'll apply
         // some changes to results so we can do some stuff internally
         const updatedNotificationLocationData = notificationLocationData?.map(notificationLocation => {
