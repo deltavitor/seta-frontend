@@ -59,21 +59,21 @@ function MapLayerFilter(props: MapLayerFilterProps) {
             </div>
             <hr></hr>
             <div>
-                <span className={"seta__notification-filter__title"}>Filtros de notificação</span>
+                <span className={"seta__map-layer-filter__title"}>Filtros de notificação</span>
                 <MenuOption handleToggle={(isChecked) => toggleFilter("labConfirmed", isChecked)}
                             checked={notificationFilters?.notificationTypeFilter.labConfirmed}>
                     <Marker markerSize={20} shape={"diamond"} color={"red"}></Marker>
                     <span>Confirmadas por laboratório</span>
                 </MenuOption>
-                <MenuOption handleToggle={(isChecked) => toggleFilter("labDiscarded", isChecked)}
-                            checked={notificationFilters?.notificationTypeFilter.labDiscarded}>
-                    <Marker markerSize={20} shape={"diamond"} color={"blue"}></Marker>
-                    <span>Descartadas por laboratório</span>
-                </MenuOption>
                 <MenuOption handleToggle={(isChecked) => toggleFilter("clinicalConfirmed", isChecked)}
                             checked={notificationFilters?.notificationTypeFilter.clinicalConfirmed}>
                     <Marker markerSize={20} shape={"circle"} color={"red"}></Marker>
                     <span>Confirmadas por clínico-epidemio.</span>
+                </MenuOption>
+                <MenuOption handleToggle={(isChecked) => toggleFilter("labDiscarded", isChecked)}
+                            checked={notificationFilters?.notificationTypeFilter.labDiscarded}>
+                    <Marker markerSize={20} shape={"diamond"} color={"blue"}></Marker>
+                    <span>Descartadas por laboratório</span>
                 </MenuOption>
                 <MenuOption handleToggle={(isChecked) => toggleFilter("clinicalDiscarded", isChecked)}
                             checked={notificationFilters?.notificationTypeFilter.clinicalDiscarded}>

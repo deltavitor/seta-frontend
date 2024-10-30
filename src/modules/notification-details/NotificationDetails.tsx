@@ -1,7 +1,7 @@
 import "./NotificationDetails.scss";
 import "../../styles/grid.scss";
 import { Badge, type BadgeProps, Tooltip } from "../core";
-import { Calendar, HelpCircle } from "lucide-react";
+import { Calendar, ClipboardPen, HelpCircle, Thermometer } from "lucide-react";
 import {
     parseNotificationIdade,
     getNotificationLabExams,
@@ -125,7 +125,12 @@ function NotificationDetails(props: NotificationDetailsProps) {
                     </div>
 
                     <span className={"seta__notification-details__subheader"}>
-                        <Calendar size={16} style={{marginRight: "0.5rem"}}/>{notification.dataNotificacao.toString()}
+                        <span title={"Data de início dos sintomas"} style={{display: "inline-flex", alignItems: "center"}}>
+                            <Thermometer size={16} style={{marginRight: "0.375rem"}}/>{notification.dataDiagnosticoSintoma}
+                        </span>
+                        <span title={"Data da notificação"} style={{display: "inline-flex", alignItems: "center"}}>
+                            <ClipboardPen size={16} style={{marginRight: "0.375rem"}}/>{notification.dataNotificacao}
+                        </span>
                     </span>
 
                     <div className={"seta__notification-details__content"}>
@@ -190,11 +195,17 @@ function NotificationDetails(props: NotificationDetailsProps) {
                                 Investigação<hr></hr>
                             </span>
                             <div className={"seta__row"}>
-                                <div className={"seta__notification-details__field seta__col-1"}>
+                                <div className={"seta__notification-details__field seta__col-2"}>
                                     <small className={"seta__notification-details__label"}>
                                         Data de início dos sintomas
                                     </small>
-                                    <span>{notification.dataDiagnosticoSintoma.toString() || "-"}</span>
+                                    <span>{notification.dataDiagnosticoSintoma || "-"}</span>
+                                </div>
+                                <div className={"seta__notification-details__field seta__col-2"}>
+                                    <small className={"seta__notification-details__label"}>
+                                        Data da notificação
+                                    </small>
+                                    <span>{notification.dataNotificacao || "-"}</span>
                                 </div>
                             </div>
                             <div className={"seta__row"}>

@@ -1,6 +1,6 @@
 import { MapLayerFilter, NotificationTimeFilter, NotificationTimelinePlayer } from "../index";
 import { Button } from "../core";
-import { Calendar, Clock, Layers } from "lucide-react";
+import { Clock, Filter, Layers } from "lucide-react";
 import React, { useState } from "react";
 
 type MapControlPanelProps = {
@@ -44,7 +44,7 @@ function MapControlPanel(props: MapControlPanelProps) {
                 <NotificationTimeFilter hidden={!controlPanelFiltersVisibility.notificationTimeFilters}/>
                 <Button size={"small"} kind={"primary"}
                         onClick={() => toggleControlPanelFilter("notificationTimeFilters")}>
-                    Filtros por tempo <Calendar size={16}/>
+                    Filtros <Filter size={16}/>
                 </Button>
             </div>
             <div style={{position: "relative", display: "inline-block"}}>

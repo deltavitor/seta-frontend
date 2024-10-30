@@ -2,7 +2,7 @@ import "./NotificationSummaryList.scss";
 import "../../styles/grid.scss";
 import type { Notification, NotificationLocation, NotificationSummary } from "../../types";
 import { NotificationStatusBadge } from "../index";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight, ClipboardPen, Thermometer } from "lucide-react";
 import { Button } from "../core";
 import React from "react";
 
@@ -39,9 +39,13 @@ function NotificationSummaryList(props: NotificationSummaryListProps) {
                             <NotificationStatusBadge size={"small"} notification={notificationSummary}/>
                         </div>
                         <div className={"seta__notification-summary-list__card__body"}>
-                            <span className={"seta__notification-summary-list__inline-field seta__col-2"}>
-                                <Calendar size={16} style={{marginRight: "0.5rem"}}/>
-                                {notificationSummary.dataNotificacao.toString()}
+                            <span className={"seta__notification-summary-list__inline-field seta__col-2"} title={"Data de início dos sintomas"}>
+                                <Thermometer size={16} style={{marginRight: "0.375rem"}}/>
+                                {notificationSummary.dataDiagnosticoSintoma}
+                            </span>
+                            <span className={"seta__notification-summary-list__inline-field seta__col-2"} title={"Data da notificação"}>
+                                <ClipboardPen size={16} style={{marginRight: "0.375rem"}}/>
+                                {notificationSummary.dataNotificacao}
                             </span>
                         </div>
                         <div className={"seta__notification-summary-list__card__footer"}>
