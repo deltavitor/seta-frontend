@@ -12,7 +12,7 @@ import {
 import { NotificationPredictionBadge, NotificationStatusBadge } from "../index";
 import type { Notification, NotificationLocation } from "../../types";
 import { useGetNotificationByNumeroNotificacao } from "../../hooks";
-import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
+import React, { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 
 type NotificationDetailsProps = {
     numeroNotificacao: Notification["numeroNotificacao"],
@@ -109,9 +109,13 @@ function NotificationDetails(props: NotificationDetailsProps) {
     return (
         <div className={"seta__notification-details"}>
             {status === "pending" ? (
-                "Loading"
+                <div className={"seta__notification-pane__placeholder"}>
+                    Carregando notificação...
+                </div>
             ) : status === "error" ? (
-                "Error"
+                <div className={"seta__notification-pane__placeholder"}>
+                    Ocorreu um erro. Tente novamente.
+                </div>
             ) : (
                 <>
                     <div className={"seta__notification-details__header"}>

@@ -14,11 +14,13 @@ function SideMenu() {
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     const deleteAllNotificationsAndNotificationLocations = async () => {
-        await deleteAllNotificationLocations.mutateAsync().then(() => {
-            deleteAllNotifications.mutateAsync().then(() => {
-                queryClient.invalidateQueries();
-            })
-        });
+        // Disabled for user testing
+
+        // await deleteAllNotificationLocations.mutateAsync().then(() => {
+        //     deleteAllNotifications.mutateAsync().then(() => {
+        //         queryClient.invalidateQueries();
+        //     })
+        // });
     };
 
     const toggleMenu = () => {

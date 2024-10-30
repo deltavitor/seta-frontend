@@ -92,7 +92,7 @@ function App() {
     // TODO improve this
     return (
         <div>
-            { isLoading && <h1>Loading...</h1> }
+            { isLoading && <h1>Carregando...</h1> }
             { !isLoading && notificationLocations?.length == 0 && <StartupCard/> }
             { validNotificationLocations && validNotificationLocations.length > 0 && !isLoading &&
                 <div>

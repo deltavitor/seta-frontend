@@ -10,6 +10,7 @@ type NotificationSummaryListProps = {
     setNumeroNotificacao: React.Dispatch<React.SetStateAction<Notification["numeroNotificacao"]>>;
     notificationLocation?: NotificationLocation;
     notifications: Array<Notification | NotificationSummary>;
+    title?: string;
 };
 
 function NotificationSummaryList(props: NotificationSummaryListProps) {
@@ -18,7 +19,7 @@ function NotificationSummaryList(props: NotificationSummaryListProps) {
         <div className={"seta__notification-summary-list"}>
             <div className={"seta__notification-summary-list__header"}>
                 <span className={"seta__notification-summary-list__header__title"}>
-                    Notificações neste local
+                    {props.title ? props.title : "Notificações neste local"}
                 </span>
             </div>
             {props.notificationLocation &&
