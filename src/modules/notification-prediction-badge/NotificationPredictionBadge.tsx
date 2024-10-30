@@ -29,11 +29,11 @@ function NotificationPredictionBadge(props: NotificationPredictionBadgeProps) {
     return (
         <span className={"seta__notification-prediction-badge"}>
             {status === "pending" ? (
-                <Badge kind={"heavy"} color={"gray"}>
+                <Badge kind={"light"} color={"gray"}>
                     Carregando...
                 </Badge>
             ) : status === "error" ? (
-                <Badge kind={"heavy"} color={"gray"}>
+                <Badge kind={"light"} color={"gray"}>
                     Erro
                 </Badge>
             ) : (
