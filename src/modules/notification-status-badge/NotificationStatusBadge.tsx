@@ -19,13 +19,13 @@ function NotificationStatusBadge(props: NotificationStatusBadgeProps) {
         const notificationType = getNotificationType(notification);
         switch (notificationType) {
             case "labConfirmed":
-                return "Confirmado laboratório";
+                return "Confirmado (laboratório)";
             case "clinicalConfirmed":
-                return "Confirmado clínico-epidem.";
+                return "Confirmado (clínico-epidemiológico)";
             case "labDiscarded":
-                return "Descartado laboratório";
+                return "Descartado (laboratório)";
             case "clinicalDiscarded":
-                return "Descartado clínico-epidem.";
+                return "Descartado (clínico-epidemiológico)";
             case "underInvestigation":
                 return "Sob investigação";
             default:

@@ -21,7 +21,7 @@ function UnmappedNotificationsButton(props: UnmappedNotificationsButtonProps) {
 
     return (
         <button className={"seta__invalid-notifications-button"}
-            title={`Há ${props.unmappedNotifications.length} notificações com problemas`}
+            title={`Há ${props.unmappedNotifications.length} notificações não-georreferenciadas`}
             onClick={toggleInvalidNotificationsView}
         >
             <CircleAlert size={56} color={colors["red800"]}/>

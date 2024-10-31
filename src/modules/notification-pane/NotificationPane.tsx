@@ -61,7 +61,7 @@ function NotificationPane(props: NotificationPaneProps) {
                                 <NotificationSummaryList
                                     setNumeroNotificacao={selectedNofication.setSelectedNumeroNotificacao}
                                     notifications={props.unmappedNotifications}
-                                    title={"Notificações não-mapeadas - seus endereços podem estar incorretos"}
+                                    title={"Não foi possível mapear essas notificações - seus endereços podem estar incorretos"}
                                 />
                             </div>
                     : selectedNofication?.selectedNumeroNotificacao && selectedNofication?.selectedNumeroNotificacao !== "-1" && selectedNofication?.selectedNumeroNotificacao !== "0" ?
